@@ -1,5 +1,5 @@
 import { Fragment, useId, useState } from 'react';
-//import styles from './DeveloperCard.module.css';
+import styles from './DeveloperCard.module.css';
 import SkillBadge from './SkillBadge';
 
 function getInitials(fullName) {
@@ -24,10 +24,12 @@ function DeveloperCard({
   const [imgFailed, setImgFailed] = useState(false);
 
   return (
-    <article aria-labelledby={titleId}>
-      <header>
+    <article className={styles.card} aria-labelledby={titleId}>
+      <header className={styles.header}>
         {imgFailed ? (
-          <span aria-hidden="true">{getInitials(fullName)}</span>
+          <span className={styles.initials} aria-hidden="true">
+            {getInitials(fullName)}
+          </span>
         ) : (
           <img
             src={avatarUrl}
@@ -43,7 +45,7 @@ function DeveloperCard({
         </hgroup>
       </header>
 
-      <dl>
+      <dl className={styles.metrics}>
         {Object.entries(metrics).map(([label, value]) => (
           <Fragment key={label}>
             <dt>{label}</dt>
@@ -52,7 +54,7 @@ function DeveloperCard({
         ))}
       </dl>
 
-      <ul aria-label="Engineered Skills">
+      <ul className={styles.skills} aria-label="Engineered Skills">
         {skills.map((skill) => (
           <SkillBadge
             key={skill.id}
