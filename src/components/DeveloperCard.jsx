@@ -1,6 +1,14 @@
-import { Fragment, useId } from 'react';
+import { Fragment, useId, useState } from 'react';
 //import styles from './DeveloperCard.module.css';
 import SkillBadge from './SkillBadge';
+
+function getInitials(fullName) {
+  const words = fullName.trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return '';
+  const first = words[0][0];
+  const last = words.length > 1 ? words[words.length - 1][0] : '';
+  return (first + last).toUpperCase();
+}
 
 function DeveloperCard({
   fullName = 'Le Nguyen Ngoc',
@@ -13,16 +21,22 @@ function DeveloperCard({
   ],
 }) {
   const titleId = useId();
+  const [imgFailed, setImgFailed] = useState(false);
 
   return (
     <article aria-labelledby={titleId}>
       <header>
-        <img
-          src={avatarUrl}
-          alt={`Ảnh đại diện của ${fullName}`}
-          width="64"
-          height="64"
-        />
+        {imgFailed ? (
+          <span aria-hidden="true">{getInitials(fullName)}</span>
+        ) : (
+          <img
+            src={avatarUrl}
+            alt={`Ảnh đại diện của ${fullName}`}
+            width="64"
+            height="64"
+            onError={() => setImgFailed(true)}
+          />
+        )}
         <hgroup>
           <h2 id={titleId}>{fullName}</h2>
           <p>{role}</p>
