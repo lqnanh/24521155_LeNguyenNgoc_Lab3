@@ -13,7 +13,6 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   const [people, setPeople] = useState(initialData);
   const visible = people;
 
-
   function handleDelete(id) {
     setPeople((prev) => prev.filter((person) => person.id !== id));
   }
@@ -27,8 +26,7 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   }
 
   return (
-    <section>
-
+    <section aria-label="Pioneer Directory">
       <form role="search" onSubmit={handleSubmit}>
         <button type="button" onClick={handleReset}>
           Reset
@@ -36,9 +34,8 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
       </form>
 
       <output role="status" aria-live="polite">
-        Found {people.length} pioneers
+        Found {visible.length} pioneers
       </output>
-
 
       {visible.length === 0 ? (
         <p>No pioneers match your filters.</p>
@@ -46,7 +43,8 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
         <ul>
           {visible.map((person) => (
             <li key={person.id}>
-              {person.name} - IQ: {person.iq}
+              {person.name} - IQ: {person.iq} - Age: {person.age}
+              {' '}
               <button type="button" onClick={() => handleDelete(person.id)}>
                 Delete
               </button>
@@ -54,7 +52,6 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
           ))}
         </ul>
       )}
-
     </section>
   );
 }
