@@ -48,3 +48,20 @@
 - [ ] T-36: Kiểm tra Console không có cảnh báo (warning) hay lỗi
 - [ ] T-37: Nếu AI lỡ sinh ra useEffect hoặc state "filtered", ghi lại vào AI_FAILURE_AUDIT.md kèm bằng chứng và cách sửa
 - [ ] T-41: git push lên GitHub
+
+# TASK_DECOMPOSITION.md - Lab 3, Exercise 3
+
+- [ ] T-00: Tạo project Vite + React 19, tạo project-rules.md
+- [ ] T-01: Viết src/data/squads.js (3 đội CES, TE, GE)
+- [ ] T-02: Viết src/api/fetchTelemetry.js (chờ 1,2s, lỗi 35%, hỗ trợ hủy bằng signal)
+- [ ] T-04: Viết PubgMatchTelemetry.jsx với 1 state view và 4 trạng thái IDLE/LOADING/SUCCESS/ERROR
+- [ ] T-06: Thêm AbortController + cleanup + bỏ qua AbortError
+- [ ] T-07: Kiểm tra: bấm nhanh đổi đội, Network thấy (canceled), UI không nháy lỗi
+- [ ] T-09: Viết PubgMatchTelemetry.module.css, skeleton cao 220px, aria-busy
+- [ ] T-11: Thêm khung lỗi role="alert" + nút Reconnect Satellite (retryTick), không dùng alert()
+- [ ] T-13: Viết TelemetryPanel.jsx (3 nút chọn đội, aria-pressed) và gắn vào App.jsx
+- [ ] T-15: Hiển thị thông tin đội bằng <article> + <dl>/<dt>/<dd>, Fragment có key
+- [ ] T-17: Chỉnh CSS 375px: không cuộn ngang, nút cao tối thiểu 44px, có viền focus
+- [ ] T-18: Kiểm tra bằng grep (không còn div, alert, defaultProps) và Slow 3G (skeleton không giật)
+- [ ] T-20: Ghi lại lỗi AI đã mắc vào AI_FAILURE_AUDIT.md (nếu có)
+- [ ] T-21: git push lên GitHub

@@ -25,3 +25,21 @@
 15. Không viết style trực tiếp trong thẻ (không dùng style={{...}}). Nếu cần giao diện thì dùng file CSS Module.
 16. Không dùng window.alert và không dùng keyCode.
 17. Không dùng thư viện ngoài.
+
+## exercise 3
+1. Chỉ viết component dạng hàm (function), không viết class.
+2. Giá trị mặc định đặt ngay trong dấu ngoặc của hàm (ví dụ squadId = 'te'), không dùng defaultProps.
+3. Chỉ dùng MỘT state tên view dạng { status, data, error }. status chỉ có 4 giá trị: IDLE, LOADING, SUCCESS, ERROR. Không dùng nhiều biến true/false như isLoading, isError.
+4. Mỗi useEffect gọi dữ liệu phải tạo AbortController mới, truyền signal vào hàm fetch, và gọi controller.abort() trong phần dọn dẹp (return của effect).
+5. Nếu lỗi có name là 'AbortError' thì bỏ qua, không chuyển sang ERROR.
+6. Hàm giả lập fetch phải lắng nghe signal: bị hủy thì dừng bộ đếm giờ ngay và báo lỗi AbortError.
+7. Không dùng alert(). Lỗi hiện bằng <section role="alert"> kèm nút "Reconnect Satellite".
+8. Khi LOADING, hiện skeleton là <section aria-busy="true"> cao đúng 220px. Card kết quả cao tối thiểu 220px để giao diện không bị giật.
+9. Nút thử lại dùng state retryTick (tăng 1 mỗi lần bấm) và đưa vào danh sách phụ thuộc của useEffect. Không gọi fetch thủ công.
+10. Mọi nút phải có type="button". Nút chọn đội dùng aria-pressed.
+11. Không dùng thẻ <div> ở bất kỳ đâu. Thay bằng <section>, <article>, <header>, <dl>, <dt>, <dd>, <ul>, <li>, <span>.
+12. Hiển thị thông tin đội bằng <dl>/<dt>/<dd>, lặp bằng Object.entries kèm Fragment có key.
+13. Khi lặp danh sách, dùng id làm key, không dùng số thứ tự.
+14. Không viết style trực tiếp trong thẻ (không dùng style={{...}}). Mọi giao diện nằm trong file CSS Module.
+15. Giao diện chạy tốt ở 375px: không cuộn ngang, nút cao tối thiểu 44px, có viền khi focus bằng bàn phím.
+16. Không dùng thư viện ngoài.
