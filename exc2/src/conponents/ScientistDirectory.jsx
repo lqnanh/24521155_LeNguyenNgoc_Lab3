@@ -1,5 +1,7 @@
 // src/components/ScientistDirectory.jsx
 
+import { useState } from 'react';
+
 const SMART_PEOPLE = [
   { id: 'sp-1', name: 'Johann Goethe', age: 82, iq: 210 },
   { id: 'sp-2', name: 'Albert Einstein', age: 76, iq: 205 },
@@ -10,6 +12,13 @@ const SMART_PEOPLE = [
 ];
 
 export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
+
+  const [people, setPeople] = useState(initialData);
+
+  function handleDelete(id) {
+    setPeople((prev) => prev.filter((person) => person.id !== id));
+  }
+
   return (
     <section>
       <ul>
