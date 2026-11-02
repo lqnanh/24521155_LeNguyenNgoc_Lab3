@@ -1,0 +1,40 @@
+.skeleton {
+  box-sizing: border-box;
+  width: 100%;
+  height: 220px;
+  border: 1px solid #2a3140;
+  border-radius: 8px;
+  background: #1a1f2b;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.card {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 220px;
+  padding: 16px;
+  border: 1px solid #2a3140;
+  border-radius: 8px;
+  background: #121722;
+  color: #e6e9f0;
+}
+
+.title {
+  margin: 0 0 8px;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
