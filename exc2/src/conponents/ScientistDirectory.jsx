@@ -11,6 +11,15 @@ const SMART_PEOPLE = [
   { id: 'sp-6', name: 'William Sidis', age: 46, iq: 200 },
 ];
 
+
+function handleReset() {
+  setPeople(initialData);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+}
+
 export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
 
   const [people, setPeople] = useState(initialData);
@@ -21,6 +30,11 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
 
   return (
     <section>
+      <form role="search" onSubmit={handleSubmit}>
+        <button type="button" onClick={handleReset}>
+          Reset
+        </button>
+      </form>
       <ul>
         {initialData.map((person) => (
           <li key={person.id}>
