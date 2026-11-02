@@ -11,21 +11,19 @@ const SMART_PEOPLE = [
   { id: 'sp-6', name: 'William Sidis', age: 46, iq: 200 },
 ];
 
-
-function handleReset() {
-  setPeople(initialData);
-}
-
-function handleSubmit(event) {
-  event.preventDefault();
-}
-
 export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
-
   const [people, setPeople] = useState(initialData);
 
   function handleDelete(id) {
     setPeople((prev) => prev.filter((person) => person.id !== id));
+  }
+
+  function handleReset() {
+    setPeople(initialData);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
   }
 
   return (
@@ -35,10 +33,16 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
           Reset
         </button>
       </form>
+      <output role="status" aria-live="polite">
+        Found {people.length} pioneers
+      </output>
       <ul>
-        {initialData.map((person) => (
+        {people.map((person) => (
           <li key={person.id}>
-            {person.name} - IQ: {person.iq}
+            {person.name} - IQ: {person.iq}{' '}
+            <button type="button" onClick={() => handleDelete(person.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
