@@ -48,7 +48,7 @@ function PubgMatchTelemetry({ squadId = 'te' }) {
 
   if (view.status === 'ERROR') {
     return (
-      <section role="alert">
+      <section className={styles.alert} role="alert">
         <span>Blue-Zone Link Lost: {view.error.message}</span>
         <button
           type="button"

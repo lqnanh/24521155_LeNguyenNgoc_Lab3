@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import PubgMatchTelemetry from './PubgMatchTelemetry.jsx';
 import { PUBG_VN_SQUADS } from '../data/squads.js';
+import styles from './TelemetryPanel.module.css';
 
 function TelemetryPanel() {
   const [squadId, setSquadId] = useState('te');
 
   return (
     <section aria-label="Bảng telemetry PUBG">
-      <ul>
+      <ul className={styles.squadList}>
         {PUBG_VN_SQUADS.map((squad) => (
           <li key={squad.id}>
             <button

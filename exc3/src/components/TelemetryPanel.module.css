@@ -1,0 +1,12 @@
+.squadList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.squadList > li {
+  min-width: 0;
+}
