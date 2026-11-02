@@ -4,6 +4,7 @@ import styles from './PubgMatchTelemetry.module.css';
 
 function PubgMatchTelemetry({ squadId = 'te' }) {
   const [view, setView] = useState({ status: 'IDLE', data: null, error: null });
+  const [retryTick, setRetryTick] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -24,7 +25,7 @@ function PubgMatchTelemetry({ squadId = 'te' }) {
     return () => {
       controller.abort();
     };
-  }, [squadId]);
+  }, [squadId, retryTick]);
 
   if (view.status === 'LOADING') {
     return (
@@ -37,7 +38,17 @@ function PubgMatchTelemetry({ squadId = 'te' }) {
   }
 
   if (view.status === 'ERROR') {
-    return <section role="alert">{view.error.message}</section>;
+    return (
+      <section role="alert">
+        <span>Blue-Zone Link Lost: {view.error.message}</span>
+        <button
+          type="button"
+          onClick={() => setRetryTick((prev) => prev + 1)}
+        >
+          Reconnect Satellite
+        </button>
+      </section>
+    );
   }
 
   if (view.status === 'SUCCESS') {
