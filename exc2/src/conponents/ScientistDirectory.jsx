@@ -39,22 +39,22 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
         Found {people.length} pioneers
       </output>
 
-      <ul>
-        {visible.length === 0 ? (
-          <p>No pioneers match your filters.</p>
-        ) : (
-          <ul>
-            {visible.map((person) => (
-              <li key={person.id}>
-                {person.name} - IQ: {person.iq}
-                <button type="button" onClick={() => handleDelete(person.id)}>
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </ul>
+
+      {visible.length === 0 ? (
+        <p>No pioneers match your filters.</p>
+      ) : (
+        <ul>
+          {visible.map((person) => (
+            <li key={person.id}>
+              {person.name} - IQ: {person.iq}
+              <button type="button" onClick={() => handleDelete(person.id)}>
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
     </section>
   );
 }
