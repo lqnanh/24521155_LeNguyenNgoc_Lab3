@@ -28,7 +28,7 @@ function PubgMatchTelemetry({ squadId = 'te' }) {
         if (error.name === 'AbortError') {
           return;
         }
-        setView({ status: 'ERROR', data: null, error });
+        setView({ status: 'ERROR', data: null, error: error.message });
       });
 
     return () => {
@@ -49,7 +49,7 @@ function PubgMatchTelemetry({ squadId = 'te' }) {
   if (view.status === 'ERROR') {
     return (
       <section className={styles.alert} role="alert">
-        <span>Blue-Zone Link Lost: {view.error.message}</span>
+        <span>Blue-Zone Link Lost: {view.error}</span>
         <button
           type="button"
           onClick={() => setRetryTick((prev) => prev + 1)}
