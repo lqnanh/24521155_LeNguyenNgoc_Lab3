@@ -23,23 +23,6 @@
   margin: 0 0 8px;
 }
 
-.infoList {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 8px 16px;
-  margin: 0;
-}
-
-.term {
-  color: #8a93a6;
-}
-
-.value {
-  margin: 0;
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-
 @keyframes pulse {
   0%,
   100% {
@@ -54,4 +37,80 @@
   .skeleton {
     animation: none;
   }
+}
+
+:global(*),
+:global(*::before),
+:global(*::after) {
+  box-sizing: border-box;
+}
+
+:global(html),
+:global(body) {
+  margin: 0;
+  background: #0b0f17;
+  color: #e6e9f0;
+}
+
+:global(body) {
+  min-width: 320px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+:global(main) {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+:global(section[aria-label]) > :global(ul) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+:global(section[aria-label]) > :global(ul) > :global(li) {
+  min-width: 0;
+}
+
+:global(button) {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid #4a5675;
+  border-radius: 8px;
+  background: #1a1f2b;
+  color: #e6e9f0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+:global(button[aria-pressed='true']) {
+  border-color: #f2a900;
+  background: #f2a900;
+  color: #121722;
+}
+
+:global(button:focus-visible) {
+  outline: 3px solid #ffd54a;
+  outline-offset: 2px;
+}
+
+:global(section[role='alert']) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  background: #2a1215;
+  color: #ffd6d6;
 }
