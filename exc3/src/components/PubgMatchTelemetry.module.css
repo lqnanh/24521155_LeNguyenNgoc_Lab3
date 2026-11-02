@@ -2,9 +2,9 @@
   box-sizing: border-box;
   width: 100%;
   height: 220px;
-  border: 1px solid #2a3140;
+  border: 1px solid #4a5a78;
   border-radius: 8px;
-  background: #1a1f2b;
+  background: #2b3850;
   animation: pulse 1.4s ease-in-out infinite;
 }
 
@@ -26,10 +26,10 @@
 @keyframes pulse {
   0%,
   100% {
-    opacity: 1;
+    background-color: #2b3850;
   }
   50% {
-    opacity: 0.55;
+    background-color: #43587a;
   }
 }
 
