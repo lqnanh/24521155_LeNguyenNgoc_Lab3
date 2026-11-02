@@ -1,5 +1,3 @@
-// src/components/ScientistDirectory.jsx
-
 import { useState } from 'react';
 
 const SMART_PEOPLE = [
@@ -13,6 +11,8 @@ const SMART_PEOPLE = [
 
 export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   const [people, setPeople] = useState(initialData);
+  const visible = people;
+
 
   function handleDelete(id) {
     setPeople((prev) => prev.filter((person) => person.id !== id));
@@ -28,23 +28,32 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
 
   return (
     <section>
+
       <form role="search" onSubmit={handleSubmit}>
         <button type="button" onClick={handleReset}>
           Reset
         </button>
       </form>
+
       <output role="status" aria-live="polite">
         Found {people.length} pioneers
       </output>
+
       <ul>
-        {people.map((person) => (
-          <li key={person.id}>
-            {person.name} - IQ: {person.iq}{' '}
-            <button type="button" onClick={() => handleDelete(person.id)}>
-              Delete
-            </button>
-          </li>
-        ))}
+        {visible.length === 0 ? (
+          <p>No pioneers match your filters.</p>
+        ) : (
+          <ul>
+            {visible.map((person) => (
+              <li key={person.id}>
+                {person.name} - IQ: {person.iq}
+                <button type="button" onClick={() => handleDelete(person.id)}>
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </ul>
     </section>
   );
