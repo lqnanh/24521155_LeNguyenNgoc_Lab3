@@ -5,15 +5,24 @@ function PubgMatchTelemetry({ squadId = 'te' }) {
   const [view, setView] = useState({ status: 'IDLE', data: null, error: null });
 
   useEffect(() => {
+    const controller = new AbortController();
+
     setView({ status: 'LOADING', data: null, error: null });
 
-    fetchKraftonPubgTelemetry(squadId)
+    fetchKraftonPubgTelemetry(squadId, { signal: controller.signal })
       .then((data) => {
         setView({ status: 'SUCCESS', data, error: null });
       })
       .catch((error) => {
+        if (error.name === 'AbortError') {
+          return;
+        }
         setView({ status: 'ERROR', data: null, error });
       });
+
+    return () => {
+      controller.abort();
+    };
   }, [squadId]);
 
   if (view.status === 'LOADING') {
