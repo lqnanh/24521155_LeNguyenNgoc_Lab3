@@ -1,6 +1,15 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { fetchKraftonPubgTelemetry } from '../api/fetchTelemetry.js';
 import styles from './PubgMatchTelemetry.module.css';
+
+const INFO_LABELS = {
+  map: 'Map',
+  phase: 'Phase',
+  alive: 'Alive',
+  kills: 'Kills',
+  wwcdProb: 'WWCD Probability',
+  status: 'Status',
+};
 
 function PubgMatchTelemetry({ squadId = 'te' }) {
   const [view, setView] = useState({ status: 'IDLE', data: null, error: null });
@@ -52,10 +61,20 @@ function PubgMatchTelemetry({ squadId = 'te' }) {
   }
 
   if (view.status === 'SUCCESS') {
+    const { name, map, phase, alive, kills, wwcdProb, status } = view.data;
+    const info = { map, phase, alive, kills, wwcdProb, status };
+
     return (
-      <article className={styles.card}>
-        <h2 className={styles.title}>{view.data.name}</h2>
-        <span>Kills: {view.data.kills}</span>
+      <article className={styles.card} aria-live="polite">
+        <h3 className={styles.title}>{name}</h3>
+        <dl className={styles.infoList}>
+          {Object.entries(info).map(([key, value]) => (
+            <Fragment key={key}>
+              <dt className={styles.term}>{INFO_LABELS[key]}</dt>
+              <dd className={styles.value}>{value}</dd>
+            </Fragment>
+          ))}
+        </dl>
       </article>
     );
   }
