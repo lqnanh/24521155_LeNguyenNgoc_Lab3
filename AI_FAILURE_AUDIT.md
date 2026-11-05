@@ -29,3 +29,8 @@ Cách sửa: đổi thành error: error.message và hiển thị {view.error}.
 
 Lỗi: file CSS gộp bị mất .infoList, .term, .value (và trước đó mất .skeleton, .card), giao diện hỏng mà React không báo lỗi.
 Cách sửa: so sánh file mới với file cũ trước khi chép, thêm lại các class thiếu.
+
+## hw1
+
+1. Lỗi: Mỗi pad chỉ dùng lại một đối tượng âm thanh và tua về đầu (currentTime = 0) mỗi lần đánh, nên bấm 1 nút liên tiếp thì tiếng sau cắt cụt phần ngân của tiếng trước
+ - cách sửa: Mỗi lần đánh phát một bản sao (cloneNode()) của âm thanh đã tải sẵn để các tiếng chồng lên nhau, và lưu các bản sao trong một Set để dừng hết khi component tắt.
