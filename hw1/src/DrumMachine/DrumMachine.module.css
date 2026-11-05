@@ -1,0 +1,87 @@
+.machine {
+  --color-panel: #1b1e27;
+  --color-panel-edge: #2c3140;
+  --color-pad-top: #2f3445;
+  --color-pad-bottom: #20242f;
+  --color-pad-hover: #3a4056;
+  --color-text: #f2f4f8;
+  --color-muted: #b4bccd;
+  --color-accent: #ffb347;
+  --color-shadow: rgba(0, 0, 0, 0.55);
+
+  box-sizing: border-box;
+  max-width: 44rem;
+  margin: 1rem auto 0;
+  padding: 1rem;
+  background: var(--color-panel);
+  border: 2px solid var(--color-panel-edge);
+  border-radius: 1rem;
+  box-shadow: inset 0 2px 12px var(--color-shadow);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
+  min-width: 0;
+}
+
+.pad {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 100%;
+  min-height: 6.5rem;
+  padding: 0.75rem;
+  background: linear-gradient(
+    180deg,
+    var(--color-pad-top),
+    var(--color-pad-bottom)
+  );
+  color: var(--color-text);
+  border: 2px solid var(--color-panel-edge);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 0 var(--color-shadow);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.08s ease;
+}
+
+.pad:hover {
+  background: var(--color-pad-hover);
+}
+
+.pad:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-shadow);
+}
+
+.pad:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.pad[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 14px var(--color-accent);
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.shortcut {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
