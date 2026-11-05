@@ -1,0 +1,26 @@
+:global(body) {
+  margin: 0;
+}
+
+.app {
+  --color-bg: #12141a;
+  --color-text: #f2f4f8;
+  --color-accent: #ffb347;
+
+  box-sizing: border-box;
+  min-height: 100dvh;
+  padding: 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, sans-serif;
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--color-accent);
+}
