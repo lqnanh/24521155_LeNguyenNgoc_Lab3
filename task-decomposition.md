@@ -65,3 +65,22 @@
 - [ ] T-18: Kiểm tra bằng grep (không còn div, alert, defaultProps) và Slow 3G (skeleton không giật)
 - [ ] T-20: Ghi lại lỗi AI đã mắc vào AI_FAILURE_AUDIT.md (nếu có)
 - [ ] T-21: git push lên GitHub
+
+# TASK_DECOMPOSITION.md - Lab 3, Homework 1 (Studio Drum Kit)
+
+- [ ] T-00: Tạo thư mục src/homeworks/DrumMachine/, chép 7 file âm thanh vào public/sounds/, bổ sung quy tắc HW1 vào project-rules.md
+- [ ] T-01: Viết pads.js (7 miếng trống: mã, tên âm, phím tắt, file âm thanh)
+- [ ] T-02: Viết DrumMachine.jsx hiển thị lưới 7 nút (button type="button", không dùng div)
+- [ ] T-03: Viết DrumMachine.module.css (nền tối, dùng biến CSS, ở 375px các nút tự xuống hàng)
+- [ ] T-05: Phát âm thanh khi bấm chuột vào miếng trống
+- [ ] T-06: Viết hook useDrumKeyboard.js (bấm phím tắt thì đánh trống, có gỡ sự kiện khi tắt component)
+- [ ] T-08: Thêm hiệu ứng sáng 150ms khi đánh và aria-pressed cho mỗi nút
+- [ ] T-10: Thêm ô nhập "Tên bản thu" có nhãn (label) đi kèm
+- [ ] T-11: Thêm lịch sử 8 nhịp gần nhất bằng <output aria-live="polite">
+- [ ] T-12: Thêm thanh âm lượng nhảy lên theo nhịp rồi hạ dần
+- [ ] T-14: Test bàn phím: bật UniKey và Caps Lock, giữ chặt một phím, gõ chữ trong ô "Tên bản thu", bấm thật nhanh một miếng trống
+- [ ] T-16: Dùng phím Tab đi qua các nút: viền focus nhìn rõ, chữ đủ tương phản với nền
+- [ ] T-17: Kiểm tra giao diện ở 375px (iPhone SE), không có thanh cuộn ngang
+- [ ] T-18: Chạy Lighthouse đạt 100 điểm Accessibility, Console không có cảnh báo
+- [ ] T-20: Viết AI_FAILURE_AUDIT.md 
+- [ ] T-22: git push lên GitHub

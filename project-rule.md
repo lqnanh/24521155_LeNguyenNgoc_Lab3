@@ -43,3 +43,26 @@
 14. Không viết style trực tiếp trong thẻ (không dùng style={{...}}). Mọi giao diện nằm trong file CSS Module.
 15. Giao diện chạy tốt ở 375px: không cuộn ngang, nút cao tối thiểu 44px, có viền khi focus bằng bàn phím.
 16. Không dùng thư viện ngoài.
+
+## homework 1
+1. Chỉ viết component dạng hàm (function), không viết class.
+2. Giá trị mặc định đặt ngay trong dấu ngoặc của hàm (ví dụ isEnabled = true), không dùng defaultProps.
+3. App khởi chạy bằng createRoot và bọc trong StrictMode.
+4. Nhận diện phím bằng e.code (vị trí phím, ví dụ 'KeyW', 'KeyA'), không dùng keyCode, which hay sự kiện keypress. Phím tắt trong pads.js lưu theo dạng 'KeyW'.
+5. Nếu e.repeat là true (người dùng đang giữ phím) thì bỏ qua, mỗi lần nhấn chỉ đánh trống một lần.
+6. Khi người dùng đang gõ trong INPUT, TEXTAREA hoặc SELECT thì bỏ qua phím tắt.
+7. Lắng nghe phím trên window bên trong useEffect, và phải gỡ listener trong phần dọn dẹp (return của effect). Danh sách phụ thuộc phải ghi đủ mọi giá trị dùng bên trong, không để [] cho xong.
+8. Danh sách 7 pad là dữ liệu cố định, đặt ngoài component. Bảng tra phím → pad dùng Map.
+9. Mỗi pad là một <button type="button">, ghi rõ tên âm và phím tắt, có aria-pressed đúng với trạng thái đang được đánh.
+10. Đánh bằng chuột hay bằng bàn phím đều đi qua cùng một hàm, kết quả giống hệt nhau.
+11. Lịch sử nhịp hiện trong <output aria-live="polite">, chỉ giữ 8 nhịp gần nhất. Cập nhật bằng cách tạo mảng mới (spread, slice), không dùng push.
+12. Có thanh âm lượng nhảy theo nhịp để người không nghe được vẫn nhìn thấy. Không để thông tin chỉ truyền qua âm thanh.
+13. Mọi bộ hẹn giờ (làm sáng pad, hạ thanh âm lượng) phải được hủy khi component tắt.
+14. Mọi ô nhập phải có <label htmlFor> gắn với id tạo bằng useId(). Không dùng placeholder thay cho label.
+15. Không dùng thẻ <div> ở bất kỳ đâu. Thay bằng <main>, <section>, <header>, <ul>, <li>, <output>, <span>.
+16. Khi lặp danh sách, dùng id làm key, không dùng số thứ tự.
+17. Không dùng alert(). Không viết style trực tiếp trong thẻ (không dùng style={{...}}). Mọi giao diện nằm trong file CSS Module, màu sắc khai báo bằng biến CSS.
+18. Giao diện chạy tốt ở 375px: không cuộn ngang, nút cao tối thiểu 44px, chữ đủ tương phản với nền tối.
+19. Không được xoá viền focus (outline). Nút đang được chọn bằng phím Tab phải nhìn thấy rõ.
+20. File âm thanh đặt trong public/sounds và gọi bằng đường dẫn nội bộ, không dùng link http://.
+21. Không dùng thư viện ngoài.
