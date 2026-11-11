@@ -4,10 +4,16 @@
   --color-pad-top: #2f3445;
   --color-pad-bottom: #20242f;
   --color-pad-hover: #3a4056;
+  --color-pad-lit: #5a4220;
+  --color-field-bg: #12141a;
   --color-text: #f2f4f8;
   --color-muted: #b4bccd;
   --color-accent: #ffb347;
   --color-shadow: rgba(0, 0, 0, 0.55);
+  --color-meter-off: #2c3140;
+  --color-meter-low: #4cd68a;
+  --color-meter-mid: #ffb347;
+  --color-meter-high: #ff6b5e;
 
   box-sizing: border-box;
   max-width: 44rem;
@@ -17,6 +23,85 @@
   border: 2px solid var(--color-panel-edge);
   border-radius: 1rem;
   box-shadow: inset 0 2px 12px var(--color-shadow);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-field-bg);
+  color: var(--color-text);
+  border: 2px solid var(--color-panel-edge);
+  border-radius: 0.5rem;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.input:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.history {
+  box-sizing: border-box;
+  display: block;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-field-bg);
+  color: var(--color-text);
+  border: 2px solid var(--color-panel-edge);
+  border-radius: 0.5rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.meter {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.segment {
+  flex: 1;
+  min-width: 0;
+  height: 1.25rem;
+  background: var(--color-meter-off);
+  border-radius: 0.25rem;
+}
+
+.segmentOn {
+  background: var(--color-meter-low);
+}
+
+.segmentOn:nth-child(n + 5) {
+  background: var(--color-meter-mid);
+}
+
+.segmentOn:nth-child(n + 7) {
+  background: var(--color-meter-high);
 }
 
 .grid {
@@ -42,9 +127,11 @@
   width: 100%;
   min-height: 6.5rem;
   padding: 0.75rem;
-  background: linear-gradient(180deg,
-      var(--color-pad-top),
-      var(--color-pad-bottom));
+  background: linear-gradient(
+    180deg,
+    var(--color-pad-top),
+    var(--color-pad-bottom)
+  );
   color: var(--color-text);
   border: 2px solid var(--color-panel-edge);
   border-radius: 0.75rem;
