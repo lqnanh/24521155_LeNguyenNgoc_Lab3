@@ -84,3 +84,32 @@
 - [ ] T-18: Chạy Lighthouse đạt 100 điểm Accessibility, Console không có cảnh báo
 - [ ] T-20: Viết AI_FAILURE_AUDIT.md 
 - [ ] T-22: git push lên GitHub
+
+# Homework 2
+
+- [ ] T-00: Tạo thư mục src/homeworks/GrandPiano88/ và src/audio/, cập nhật project-rules.md với rule của HW2, commit "chore(hw2): init structure & rules"
+- [ ] T-01: Viết hợp đồng (JSDoc) cho props của PianoKey, GrandPiano88 và API của PolyphonicSynth (noteOn, noteOff, releaseAll, dispose) trước khi viết code
+- [ ] T-02: Viết keys.js: sinh 88 phím từ MIDI 21 đến 108 (midi, noteName, isBlack, freqHz)
+- [ ] T-03: Kiểm tra bằng console.assert: đúng 88 phím, 52 trắng, 36 đen, A0 = 27.5 Hz, A4 = 440 Hz, C8 ≈ 4186 Hz
+- [ ] T-05: Viết PolyphonicSynth.js: constructor, tạo AudioContext lười, noteOn (có chặn nốt trùng)
+- [ ] T-06: Thêm noteOff với envelope giảm mượt 40ms (exponentialRampToValueAtTime) và ngắt kết nối node khi kết thúc
+- [ ] T-07: Thêm FIFO voice stealing khi đủ 8 voice (lấy khóa đầu tiên của Map), thêm releaseAll() và dispose()
+- [ ] T-08: Kiểm tra thủ công trong Console: giữ 9 nốt, nốt cũ nhất bị cướp, voices.size luôn ≤ 8, không có tiếng pop
+- [ ] T-10: Viết PianoKey.jsx bọc React.memo (button, aria-pressed, aria-label, type="button", sự kiện pointer)
+- [ ] T-11: Viết GrandPiano88.jsx: state các phím đang bấm (cập nhật bất biến), useCallback cho onNoteOn/onNoteOff, tính isPressed riêng cho từng phím
+- [ ] T-12: Viết useEffect khởi tạo synth và dọn dẹp (dispose, abort) khi unmount
+- [ ] T-13: Gắn GrandPiano88 vào App.jsx, chạy thử bấm phím có tiếng
+- [ ] T-14: Mở React DevTools Profiler, bấm 1 phím, xác nhận chỉ 1 PianoKey render, chụp ảnh bằng chứng
+- [ ] T-16: Thêm ghi âm: lưu { midi, freqHz, durationMs, deltaMs } vào hàng đợi FIFO bằng performance.now(), chỉ ghi khi ở chế độ Record
+- [ ] T-17: Viết hàm sleep có hỗ trợ AbortSignal và hàm phát lại async duyệt hàng đợi theo thứ tự
+- [ ] T-18: Thêm bộ chọn tốc độ 0.5x / 1.0x / 2.0x (chia deltaMs và durationMs cho speed)
+- [ ] T-19: Thêm nút Record, Play, Stop Sequence: AbortController đặt trong useRef, bỏ qua AbortError, finally gọi releaseAll()
+- [ ] T-20: Kiểm tra: Stop giữa chừng thì im tiếng ngay, unmount thì không còn timer hay nốt nào chạy tiếp, thời gian phát lại đúng ở 3 tốc độ
+- [ ] T-22: Thêm <output aria-live="polite"> hiển thị trạng thái (số voice, đang ghi/phát) và <section role="alert"> cho lỗi, bỏ hoàn toàn alert()
+- [ ] T-23: Viết GrandPiano88.module.css (biến CSS, phím trắng/đen, viền focus, nút cao tối thiểu 44px)
+- [ ] T-24: Kiểm tra giao diện ở 375px, không có thanh cuộn ngang ở cấp trang
+- [ ] T-26: Kiểm tra bằng grep: không còn <div, keyCode, alert(, defaultProps, style={{
+- [ ] T-27: Chạy Lighthouse (Accessibility phải đạt 100), kiểm tra cây Accessibility trong DevTools
+- [ ] T-28: Viết AI_FAILURE_AUDIT.md: ít nhất 3 lỗi AI (prompt, code AI, bằng chứng DevTools, commit sửa)
+- [ ] T-30: Chụp đủ ảnh bằng chứng (Profiler, 52/36 phím, voice stealing, replay 3 tốc độ, Stop, Lighthouse, 375px, git log)
+- [ ] T-31: git push lên GitHub

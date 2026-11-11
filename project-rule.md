@@ -66,3 +66,30 @@
 19. Không được xoá viền focus (outline). Nút đang được chọn bằng phím Tab phải nhìn thấy rõ.
 20. File âm thanh đặt trong public/sounds và gọi bằng đường dẫn nội bộ, không dùng link http://.
 21. Không dùng thư viện ngoài.
+
+## homework 2 
+1. Chỉ viết component dạng hàm (function), không viết class cho component. Không dùng ReactDOM.render, defaultProps, keyCode, alert().
+2. Giá trị mặc định đặt ngay trong dấu ngoặc của hàm (ví dụ maxVoices = 8, speed = 1), không dùng defaultProps.
+3. 88 phím phải được sinh bằng thuật toán từ MIDI 21 (A0) đến MIDI 108 (C8). Cấm viết tay 88 thẻ. Kết quả phải đúng 52 phím trắng và 36 phím đen.
+4. Tần số tính bằng công thức f = 440 × 2^((midi − 69) / 12). Phím đen xác định bằng midi % 12 thuộc tập {1, 3, 6, 8, 10}. Không hard-code bảng tần số.
+5. Danh sách 88 phím là hằng số ở cấp module, tạo một lần. Không tạo lại trong lúc render.
+6. PianoKey là component riêng, mỗi phím là một <button> có aria-pressed và aria-label gồm tên nốt (ví dụ "C4").
+7. State các phím đang bấm cập nhật bất biến: tạo Set mới bằng callback của setState. Không sửa trực tiếp Set cũ.
+8. Không đồng bộ state dẫn xuất bằng useEffect. Giá trị suy ra được (số voice đang hoạt động, danh sách phím trắng/đen, thời lượng replay) tính trực tiếp khi render.
+9. Engine âm thanh nằm riêng trong class PolyphonicSynth ở src/audio (đây là lớp JS thuần, không phải React component). Component chỉ gọi noteOn, noteOff, releaseAll.
+10. Voice đang hoạt động lưu trong ES6 Map (midi → { osc, gain }) để giữ thứ tự chèn FIFO. Không dùng mảng kèm shift().
+11. Tối đa 8 voice cùng lúc. Khi Map đạt 8, lấy khóa đầu tiên (nốt cũ nhất) và gọi noteOff cho nó trước khi tạo voice mới. Nếu nốt đã đang kêu thì bỏ qua, không tạo trùng.
+12. AudioContext chỉ tạo lười (lazy) trong lần noteOn đầu tiên, sau tương tác của người dùng. Nếu trạng thái là suspended thì gọi resume().
+13. Ghi âm: mỗi sự kiện lưu { midi, freqHz, durationMs, deltaMs } vào hàng đợi FIFO theo đúng thứ tự phát sinh. Thời gian đo bằng performance.now(), cấm Date.now().
+14. Chỉ ghi khi đang ở chế độ Record. Không ghi khi đang Play.
+15. Phát lại bất đồng bộ bằng async/await, duyệt hàng đợi theo thứ tự FIFO. Tốc độ phát lại thuộc {0.5, 1.0, 2.0}.
+16. Không dùng alert(). Lỗi hiện bằng <section role="alert">. Trạng thái hiển thị (số voice, đang ghi/phát) dùng <output aria-live="polite">.
+17. Mọi nút phải có type="button". Hỗ trợ bàn phím (Tab, Space, Enter) và có viền khi focus.
+18. Các form control (bộ chọn tốc độ, nút điều khiển) dùng <label htmlFor> ghép với useId().
+19. Tuyệt đối không dùng thẻ <div> ở bất kỳ đâu. Thay bằng <main>, <section>, <header>, <ul>, <li>, <fieldset>, <output>, <span>. Phím đen đặt chồng lên phím trắng bằng CSS, không thêm thẻ bọc.
+20. Khi lặp danh sách phím hoặc sự kiện đã ghi, dùng midi hoặc id ổn định làm key, không dùng chỉ số mảng.
+21. Không viết style trực tiếp trong thẻ (không dùng style={{...}}). Mọi giao diện nằm trong file CSS Module.
+22. Giao diện chạy tốt ở 375px: không cuộn ngang ở cấp trang. Nếu bàn phím rộng hơn màn hình, đặt trong một vùng cuộn ngang có kiểm soát và có nhãn. Nút điều khiển cao tối thiểu 44px.
+23. Điểm Lighthouse Accessibility phải đạt 100.
+24. Mã nguồn đặt trong src/homeworks/GrandPiano88/ và src/audio/PolyphonicSynth.js. Không dùng thư viện ngoài.
+25. Quy trình làm việc: Chia nhỏ việc trong TASK_DECOMPOSITION.md và viết hợp đồng props/JSDoc trước khi nhờ AI. Không dán nguyên đề vào AI trong một lần.
