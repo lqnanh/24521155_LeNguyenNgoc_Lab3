@@ -3,12 +3,17 @@ import { PADS } from './pads.js';
 import useDrumKeyboard from './useDrumKeyboard.js';
 import styles from './DrumMachine.module.css';
 
+// Thời gian pad sáng sau mỗi lần đánh (mili giây).
 const FLASH_MS = 150;
 
 function DrumMachine() {
+  // Map: id pad -> âm thanh gốc đã tải sẵn (chỉ dùng làm "khuôn" để sao chép).
   const audiosRef = useRef(null);
+  // Các bản sao đang phát, để dừng hết khi component tắt.
   const activeRef = useRef(new Set());
+  // Map: id pad -> bộ hẹn giờ đang chờ tắt đèn của pad đó.
   const timersRef = useRef(new Map());
+  // Tập id các pad đang sáng.
   const [litPads, setLitPads] = useState(() => new Set());
 
   useEffect(() => {
@@ -71,7 +76,7 @@ function DrumMachine() {
       voice.addEventListener('ended', () => active.delete(voice), { once: true });
 
       voice.play().catch(() => {
-        // Trình duyệt từ chối phát: bỏ bản sao, không làm vỡ app.
+        // Trình duyệt từ chối phát (hoặc thiếu file): bỏ bản sao, không làm vỡ app.
         active.delete(voice);
       });
     },
