@@ -7,7 +7,8 @@
   --color-pad-lit: #5a4220;
   --color-field-bg: #12141a;
   --color-text: #f2f4f8;
-  --color-muted: #b4bccd;
+  --color-muted: #cfd5e3;
+  --color-focus: #ffffff;
   --color-accent: #ffb347;
   --color-shadow: rgba(0, 0, 0, 0.55);
   --color-meter-off: #2c3140;
@@ -59,7 +60,7 @@
 }
 
 .input:focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -151,8 +152,8 @@
 }
 
 .pad:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 3px;
+  outline: 4px solid var(--color-focus);
+  outline-offset: 4px;
 }
 
 .pad[aria-pressed='true'] {
@@ -170,4 +171,10 @@
 .shortcut {
   font-size: 0.9rem;
   color: var(--color-muted);
+}
+
+@media (forced-colors: active) {
+  .pad[aria-pressed='true'] {
+    border-color: Highlight;
+  }
 }
