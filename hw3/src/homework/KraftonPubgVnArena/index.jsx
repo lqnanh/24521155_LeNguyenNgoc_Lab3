@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import CrateDropList from '../../components/CrateDropList';
-import { crates } from '../../data/pubgVnData';
+import SquadLeaderboard from '../../components/SquadLeaderboard';
+import { crates, squads } from '../../data/pubgVnData';
 
 export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
   const cratesHeadingId = useId();
@@ -34,9 +35,7 @@ export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
           <h2 id={leaderboardHeadingId} className="arena-section__title">
             Bảng xếp hạng đội
           </h2>
-          <p className="arena-section__placeholder">
-            Bảng xếp hạng các đội sẽ hiển thị ở đây.
-          </p>
+          <SquadLeaderboard squads={squads} />
         </section>
       </main>
     </>

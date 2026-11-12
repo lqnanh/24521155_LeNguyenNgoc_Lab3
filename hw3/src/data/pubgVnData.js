@@ -22,3 +22,35 @@ export const crates = [
     stock: 3,
   },
 ];
+
+/** @type {import('../types/pubgVn.js').Squad[]} */
+export const squads = [
+  {
+    id: 'squad-rong-lua',
+    name: 'Rồng Lửa Esports',
+    wwcd: 4,
+    rankPoints: 86,
+    killPoints: 52,
+  },
+  {
+    id: 'squad-soi-dem',
+    name: 'Sói Đêm Gaming',
+    wwcd: 2,
+    rankPoints: 74,
+    killPoints: 61,
+  },
+  {
+    id: 'squad-phuong-hoang',
+    name: 'Phượng Hoàng Đỏ',
+    wwcd: 3,
+    rankPoints: 69,
+    killPoints: 40,
+  },
+  {
+    id: 'squad-ca-map-bac',
+    name: 'Cá Mập Bạc',
+    wwcd: 1,
+    rankPoints: 58,
+    killPoints: 47,
+  },
+];
