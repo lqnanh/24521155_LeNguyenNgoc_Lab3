@@ -32,6 +32,14 @@
   border-color: var(--color-accent);
 }
 
+/* ---------- Số kết quả ---------- */
+.resultCount {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
 /* ---------- Bảng xếp hạng ---------- */
 .table {
   width: 100%;

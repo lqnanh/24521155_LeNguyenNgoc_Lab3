@@ -10,6 +10,7 @@ import {
   AIRDROP_LIVE_DURATION_MS,
   usePubgAirdropTimer,
 } from '../../hooks/usePubgAirdropTimer';
+import { getVisibleSquads } from '../../utils/sortSquads';
 
 // TẠM: giờ thả hàng giả, 90 giây sau khi mở trang
 const DEMO_AIRDROP_AT = Date.now() + 90 * 1000;
@@ -34,6 +35,9 @@ export default function KraftonPubgVnArena({
 
   const canClaim = phase === 'AIRDROP_LIVE';
   const closedLabel = phase === 'WARMUP' ? 'Chưa mở' : 'Đã đóng';
+
+  // Tính ngay trong lúc render từ dữ liệu gốc, không lưu state riêng
+  const visibleSquads = getVisibleSquads(squads, query, sortBy);
 
   return (
     <>
@@ -84,7 +88,7 @@ export default function KraftonPubgVnArena({
             onQueryChange={setQuery}
             onSortByChange={setSortBy}
           />
-          <SquadLeaderboard squads={squads} />
+          <SquadLeaderboard squads={visibleSquads} totalCount={squads.length} query={query} />
         </section>
       </main>
     </>
