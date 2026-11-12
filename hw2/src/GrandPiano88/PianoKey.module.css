@@ -7,6 +7,7 @@
   cursor: pointer;
   user-select: none;
   touch-action: none;
+
   transition:
     background-color 0.1s ease,
     transform 0.1s ease,
@@ -16,7 +17,7 @@
 .key:focus-visible {
   outline: 3px solid #d4453a;
   outline-offset: 2px;
-  z-index: 2;
+  z-index: 3;
 }
 
 .whiteKey {
@@ -37,6 +38,7 @@
   border-radius: 0 0 4px 4px;
   color: #fff;
   z-index: 2;
+
   margin-left: -13px;
   margin-right: -13px;
 }
