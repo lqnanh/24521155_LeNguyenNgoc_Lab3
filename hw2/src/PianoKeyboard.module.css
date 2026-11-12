@@ -99,6 +99,17 @@
   outline-offset: 2px;
 }
 
+.alert {
+  display: block;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border: 2px solid #d4453a;
+  border-radius: 6px;
+  background-color: #fdecea;
+  color: #7a1f17;
+  font-weight: 600;
+}
+
 /* MIDI -> số thứ tự (từ 1) của phím trắng đứng ngay trước phím đen */
 .keyboard > button[data-midi="22"] { --col:1; }
 .keyboard > button[data-midi="25"] { --col:3; }

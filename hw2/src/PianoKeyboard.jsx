@@ -80,8 +80,20 @@ function PianoKeyboard() {
   const [recording, setRecording] = useState(() => []);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [voiceCount, setVoiceCount] = useState(0);
+  const [audioError, setAudioError] = useState(() =>
+    PolyphonicSynth.isSupported()
+      ? null
+      : "Trình duyệt này không hỗ trợ Web Audio API, nên không phát được âm thanh."
+  );
   const keyboardRef = useRef(null);
-  const [synth] = useState(() => new PolyphonicSynth());
+  const [synth] = useState(
+    () =>
+      new PolyphonicSynth({
+        onVoicesChange: setVoiceCount,
+        onError: setAudioError,
+      })
+  );
   const speedId = useId();
 
   // Ref để handler đọc trạng thái mới nhất mà không phải đưa vào deps
@@ -298,17 +310,19 @@ function PianoKeyboard() {
 
   // Trạng thái suy ra được, tính trực tiếp khi render
   const canPlay = !isPlaying && !isRecording && recording.length > 0;
+  const modeLabel = isRecording ? "Đang ghi" : isPlaying ? "Đang phát" : "Sẵn sàng";
 
   return (
     <main className={styles.piano}>
       <header className={styles.toolbar}>
         <output className={styles.status} aria-live="polite">
+          {modeLabel}
+          {" · "}
           Đang bấm: {pressedKeys.size} phím
           {" · "}
-          {isRecording
-            ? `Đang ghi: ${recording.length} nốt`
-            : `Đã ghi: ${recording.length} nốt`}
-          {isPlaying ? " · Đang phát" : ""}
+          Đang kêu: {voiceCount} nốt
+          {" · "}
+          Đã ghi: {recording.length} nốt
         </output>
 
         <button
@@ -358,6 +372,12 @@ function PianoKeyboard() {
           </button>
         </fieldset>
       </header>
+
+      {audioError && (
+        <section role="alert" className={styles.alert}>
+          <span>{audioError}</span>
+        </section>
+      )}
 
       <section
         ref={keyboardRef}
