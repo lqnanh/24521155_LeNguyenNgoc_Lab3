@@ -95,7 +95,6 @@
 25. Quy trình làm việc: Chia nhỏ việc trong TASK_DECOMPOSITION.md và viết hợp đồng props/JSDoc trước khi nhờ AI. Không dán nguyên đề vào AI trong một lần.
 
 ## homework3
-## homework 3
 1. Chỉ viết component dạng hàm (function), không viết class.
 2. Giá trị mặc định đặt ngay trong dấu ngoặc của hàm, không dùng defaultProps.
 3. Không dùng ReactDOM.render, keyCode, window.alert() và link http://. Thông báo lỗi phải hiện ngay trên trang bằng role="alert".
