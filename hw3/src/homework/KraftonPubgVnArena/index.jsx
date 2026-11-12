@@ -1,4 +1,6 @@
 import { useId } from 'react';
+import CrateDropList from '../../components/CrateDropList';
+import { crates } from '../../data/pubgVnData';
 
 export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
   const cratesHeadingId = useId();
@@ -22,9 +24,7 @@ export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
           <h2 id={cratesHeadingId} className="arena-section__title">
             Vé và thùng đồ
           </h2>
-          <p className="arena-section__placeholder">
-            Danh sách vé và thùng đồ sẽ hiển thị ở đây.
-          </p>
+          <CrateDropList crates={crates} />
         </section>
 
         <section
