@@ -6,6 +6,7 @@ function PianoKey({
     noteName,
     keyType = "white",
     isPressed = false,
+    isTabStop = false,
     onPress,
     onRelease,
     onFocusKey,

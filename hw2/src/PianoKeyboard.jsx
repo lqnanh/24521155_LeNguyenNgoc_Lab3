@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PIANO_KEYS } from "./GrandPiano88/pianoKeys";
 import PianoKey from "./GrandPiano88/PianoKey";
-import { PolyphonicSynth } from "./audio/Polyphonicsynth";
+import { PolyphonicSynth } from "./audio/PolyphonicSynth";
 import styles from "./PianoKeyboard.module.css";
 
 function PianoKeyboard() {
@@ -10,36 +10,53 @@ function PianoKeyboard() {
   const keyboardRef = useRef(null);
   const [synth] = useState(() => new PolyphonicSynth());
 
-
+  // Dọn âm thanh khi unmount hoặc khi rời khỏi trang
   useEffect(() => {
+    const handlePageHide = () => {
+      synth.dispose();
+    };
+
+    window.addEventListener("pagehide", handlePageHide);
+
     return () => {
+      window.removeEventListener("pagehide", handlePageHide);
       synth.dispose();
     };
   }, [synth]);
 
-  // Thêm MIDI vào Set khi nhấn phím
-  const handlePress = useCallback((midi) => {
-    setPressedKeys((prev) => {
-      if (prev.has(midi)) return prev;
+  // Bấm phím: phát âm, rồi thêm MIDI vào Set
+  const handlePress = useCallback(
+    (midi) => {
+      synth.noteOn(midi);
 
-      const next = new Set(prev);
-      next.add(midi);
+      setPressedKeys((prev) => {
+        if (prev.has(midi)) return prev;
 
-      return next;
-    });
-  }, []);
+        const next = new Set(prev);
+        next.add(midi);
 
-  // Xóa MIDI khỏi Set khi thả phím
-  const handleRelease = useCallback((midi) => {
-    setPressedKeys((prev) => {
-      if (!prev.has(midi)) return prev;
+        return next;
+      });
+    },
+    [synth]
+  );
 
-      const next = new Set(prev);
-      next.delete(midi);
+  // Thả phím: nhả âm, rồi xóa MIDI khỏi Set
+  const handleRelease = useCallback(
+    (midi) => {
+      synth.noteOff(midi);
 
-      return next;
-    });
-  }, []);
+      setPressedKeys((prev) => {
+        if (!prev.has(midi)) return prev;
+
+        const next = new Set(prev);
+        next.delete(midi);
+
+        return next;
+      });
+    },
+    [synth]
+  );
 
   // Ghi nhớ phím đang được focus (roving tabindex)
   const handleFocusKey = useCallback((midi) => {
