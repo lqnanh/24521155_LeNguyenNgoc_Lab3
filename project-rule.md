@@ -95,24 +95,18 @@
 25. Quy trình làm việc: Chia nhỏ việc trong TASK_DECOMPOSITION.md và viết hợp đồng props/JSDoc trước khi nhờ AI. Không dán nguyên đề vào AI trong một lần.
 
 ## homework3
-1. Chỉ viết component dạng hàm (function), không viết class cho component. Không dùng ReactDOM.render, defaultProps, keyCode, window.alert(), dangerouslySetInnerHTML.
-2. Giá trị mặc định đặt ngay trong phần khai báo tham số của hàm, ví dụ `function CrateCard({ priceVnd = 0 })`.
-3. Không dùng thẻ `<div>` ở bất kỳ đâu trong HW3. Dùng `<main>`, `<section aria-label="...">`, `<article>`, `<header>`, `<ul>`/`<li>`, `<dl>`/`<dt>`/`<dd>`, `<output>`, và `<Fragment>` khi chỉ cần nhóm phần tử.
-4. Đếm ngược airdrop tính bằng `Math.max(0, targetEpochMs - (Date.now() + serverOffsetMs))`. Không trừ dần từng giây. Cập nhật mỗi 200ms và tính lại ngay khi tab hiện lại (`visibilitychange`).
-5. Giá tiền VND hiển thị bằng `Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })`.
-6. Nhận vé là optimistic: giảm số lượng ngay trên giao diện. Khóa chống bấm trùng (claimId đang chờ) lưu bằng `useRef`, không dùng `useState`.
-7. Khi máy chủ trả về 409, khôi phục số lượng cũ và chuyển trạng thái sang `LOOTED_OUT`. Khi yêu cầu bị hủy (AbortError), không hoàn lại và không báo lỗi.
-8. Dữ liệu dẫn xuất (danh sách đã lọc, đã sắp xếp, số lượng tìm được) tính ngay khi render, không lưu vào state và không dùng `useEffect` để đồng bộ.
-9. Sắp xếp dùng `.toSorted()`, không dùng `.sort()`, vì `.sort()` làm thay đổi mảng gốc.
-10. Mọi `useEffect` tạo timer, sự kiện hoặc yêu cầu mạng đều có hàm cleanup: `clearInterval`, `removeEventListener`, `controller.abort()`.
-11. Mọi yêu cầu mạng dùng `AbortController`, truyền `signal` vào `fetch`.
-12. Key trong danh sách là id của từng mục. Không dùng index làm key.
-13. Mọi ô nhập và ô chọn có `<label htmlFor={id}>`, id lấy từ `useId()`.
-14. Số kết quả tìm được hiển thị trong `<output role="status" aria-live="polite">`.
-15. Lỗi mạng hiển thị trong `<section role="alert">`, kèm nút `type="button"` để thử lại.
-16. Mọi ảnh và đường dẫn dùng HTTPS, có `alt`, có `width` và `height` cố định.
-17. Giao diện đúng ở 375px, không cuộn ngang. CSS dùng file `.module.css`. Màu khai báo trong `:root` dưới dạng biến CSS.
-18. Danh sách ảo (virtual list) từ Lab 2 HW3 được giữ lại, key theo id ổn định.
-19. Lịch sử Git có 6 đến 8 commit nguyên tử, tên theo mẫu `feat(hw3): ...`, `style(hw3): ...`, `fix(hw3): ...`. Không commit `node_modules`.
-20. `AI_FAILURE_AUDIT.md` ghi ít nhất 3 lỗi AI, mỗi lỗi có prompt, đoạn code sai, bằng chứng từ DevTools và cách sửa.
-21. Các luật chung của dự án vẫn áp dụng.
+## homework 3
+1. Chỉ viết component dạng hàm (function), không viết class.
+2. Giá trị mặc định đặt ngay trong dấu ngoặc của hàm, không dùng defaultProps.
+3. Không dùng ReactDOM.render, keyCode, window.alert() và link http://. Thông báo lỗi phải hiện ngay trên trang bằng role="alert".
+4. Không dùng div cho mọi thứ. Dùng main, header, section, article, ul, li, dl, dt, dd, output.
+5. Mỗi ô nhập (input, select) phải có label đi kèm, nối với nhau bằng useId().
+6. Danh sách phải dùng key là id của dữ liệu, không dùng số thứ tự (index).
+7. Đồng hồ đếm ngược không được trừ dần mỗi giây. Thời gian còn lại phải tính bằng mốc giờ đích trừ giờ hiện tại, và tính lại ngay khi người dùng quay lại tab (visibilitychange).
+8. Mọi setInterval, setTimeout, addEventListener hoặc fetch trong useEffect phải có hàm dọn dẹp trả về (clearInterval, clearTimeout, removeEventListener, abort).
+9. Không sửa thẳng vào state cũ (không push, splice, không gán stock--). Luôn tạo mảng hoặc object mới bằng map, filter, dấu ba chấm.
+10. Khi bấm Nhận: trừ số lượng ngay trên màn hình, khóa nút trong lúc chờ để không bấm trùng. Nếu server trả lỗi 409 thì trả số lượng về như cũ và báo lỗi.
+11. Không dùng useEffect cho việc tìm kiếm, lọc, sắp xếp bảng xếp hạng. Danh sách hiển thị phải được tính ngay trong lúc render.
+12. Không tạo state riêng cho danh sách đã lọc. Chỉ lưu state gốc: squads, query, sortBy. Sắp xếp bằng toSorted(), không dùng sort().
+13. Giá tiền lưu dạng số, chỉ định dạng khi hiển thị bằng Intl.NumberFormat('vi-VN').
+14. Giao diện phải vừa màn hình 375px, không có thanh cuộn ngang.
