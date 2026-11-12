@@ -1,21 +1,31 @@
 import { useId, useState } from 'react';
 import AirdropPhaseBadge from '../../components/AirdropPhaseBadge';
+import Countdown from '../../components/Countdown';
 import CrateDropList from '../../components/CrateDropList';
 import LeaderboardControls from '../../components/LeaderboardControls';
 import SquadLeaderboard from '../../components/SquadLeaderboard';
 import { crates, squads } from '../../data/pubgVnData';
+import { usePubgAirdropTimer } from '../../hooks/usePubgAirdropTimer';
+
+// TẠM: giờ thả hàng giả, 90 giây sau khi mở trang
+const DEMO_AIRDROP_AT = Date.now() + 90 * 1000;
 
 // TẠM: danh sách trạng thái cho các nút đổi bằng tay, xóa khi có đồng hồ thật
 const DEBUG_PHASES = ['WARMUP', 'AIRDROP_LIVE', 'LOOTED_OUT', 'EXPIRED'];
 
-export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
+export default function KraftonPubgVnArena({
+  title = 'PUBG Vietnam Arena',
+  airdropAt = DEMO_AIRDROP_AT,
+}) {
   const cratesHeadingId = useId();
   const leaderboardHeadingId = useId();
 
   const [query, setQuery] = useState('');
   const [sortBy, setSortBy] = useState('rankPoints');
 
-  // TẠM: trạng thái đổi bằng tay, bước (7) sẽ tính từ đồng hồ
+  const { remainingMs, isOpen } = usePubgAirdropTimer(airdropAt);
+
+  // TẠM: trạng thái đổi bằng tay, sẽ tính từ đồng hồ và số lượng còn lại
   const [phase, setPhase] = useState('WARMUP');
 
   return (
@@ -28,6 +38,7 @@ export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
         </p>
 
         <AirdropPhaseBadge phase={phase} />
+        <Countdown targetTime={airdropAt} remainingMs={remainingMs} isOpen={isOpen} />
 
         {/* TẠM: nút đổi trạng thái bằng tay để xem giao diện */}
         <fieldset className="phase-debug">
