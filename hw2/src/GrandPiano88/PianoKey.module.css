@@ -38,9 +38,6 @@
   border-radius: 0 0 4px 4px;
   color: #fff;
   z-index: 2;
-
-  margin-left: -13px;
-  margin-right: -13px;
 }
 
 .pressed.whiteKey {

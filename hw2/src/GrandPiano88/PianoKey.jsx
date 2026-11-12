@@ -2,57 +2,61 @@ import { memo } from "react";
 import styles from "./PianoKey.module.css";
 
 function PianoKey({
-  midi,
-  noteName,
-  keyType = "white",
-  isPressed = false,
-  onPress,
-  onRelease,
+    midi,
+    noteName,
+    keyType = "white",
+    isPressed = false,
+    onPress,
+    onRelease,
 }) {
-  const isBlack = keyType === "black";
+    const isBlack = keyType === "black";
 
-  function handlePointerDown(event) {
-    if (event.button !== 0) return;
+    function handlePointerDown(event) {
+        if (event.button !== 0) return;
 
-    event.preventDefault();
-    onPress?.(midi);
-  }
+        event.preventDefault();
+        onPress?.(midi);
+    }
 
-  function handleKeyDown(event) {
-    if (event.key !== " " && event.key !== "Enter") return;
+    function handleKeyDown(event) {
+        if (event.key !== " " && event.key !== "Enter") return;
 
-    event.preventDefault();
+        event.preventDefault();
 
-    if (event.repeat) return;
+        if (event.repeat) return;
 
-    onPress?.(midi);
-  }
+        onPress?.(midi);
+    }
 
-  function handleKeyUp(event) {
-    if (event.key !== " " && event.key !== "Enter") return;
+    function handleKeyUp(event) {
+        if (event.key !== " " && event.key !== "Enter") return;
 
-    event.preventDefault();
-    onRelease?.(midi);
-  }
+        event.preventDefault();
+        onRelease?.(midi);
+    }
 
-  return (
-    <button
-      type="button"
-      className={`${styles.key} ${
-        isBlack ? styles.blackKey : styles.whiteKey
-      } ${isPressed ? styles.pressed : ""}`}
-      aria-label={noteName}
-      aria-pressed={isPressed}
-      onPointerDown={handlePointerDown}
-      onPointerUp={() => onRelease?.(midi)}
-      onPointerLeave={() => onRelease?.(midi)}
-      onPointerCancel={() => onRelease?.(midi)}
-      onKeyDown={handleKeyDown}
-      onKeyUp={handleKeyUp}
-    >
-      <span className={styles.noteName}>{noteName}</span>
-    </button>
-  );
+    return (
+        <button
+            type="button"
+            data-midi={midi}
+            data-key-type={keyType}
+            className={[
+                styles.key,
+                isBlack ? styles.blackKey : styles.whiteKey,
+                isPressed ? styles.pressed : "",
+            ].filter(Boolean).join(" ")}
+            aria-label={noteName}
+            aria-pressed={isPressed}
+            onPointerDown={handlePointerDown}
+            onPointerUp={() => onRelease?.(midi)}
+            onPointerLeave={() => onRelease?.(midi)}
+            onPointerCancel={() => onRelease?.(midi)}
+            onKeyDown={handleKeyDown}
+            onKeyUp={handleKeyUp}
+        >
+            <span className={styles.noteName}>{noteName}</span>
+        </button>
+    );
 }
 
 export default memo(PianoKey);

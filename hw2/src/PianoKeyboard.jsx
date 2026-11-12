@@ -38,46 +38,30 @@ function PianoKeyboard() {
     (key) => key.keyType === "black"
   );
 
-  return (
-    <main className={styles.piano}>
-      <output className={styles.status} aria-live="polite">
-        Đang bấm: {pressedKeys.size} phím
-      </output>
+return (
+  <main className={styles.piano}>
+    <output className={styles.status} aria-live="polite">
+      Đang bấm: {pressedKeys.size} phím
+    </output>
 
-      <section
-        className={styles.keyboard}
-        aria-label="Đàn piano 88 phím"
-      >
-        <section className={styles.whiteKeys}>
-          {whiteKeys.map((key) => (
-            <PianoKey
-              key={key.midi}
-              midi={key.midi}
-              noteName={key.noteName}
-              keyType={key.keyType}
-              isPressed={pressedKeys.has(key.midi)}
-              onPress={handlePress}
-              onRelease={handleRelease}
-            />
-          ))}
-        </section>
-
-        <section className={styles.blackKeys}>
-          {blackKeys.map((key) => (
-            <PianoKey
-              key={key.midi}
-              midi={key.midi}
-              noteName={key.noteName}
-              keyType={key.keyType}
-              isPressed={pressedKeys.has(key.midi)}
-              onPress={handlePress}
-              onRelease={handleRelease}
-            />
-          ))}
-        </section>
-      </section>
-    </main>
-  );
+    <section
+      className={styles.keyboard}
+      aria-label="Đàn piano 88 phím"
+    >
+      {PIANO_KEYS.map((key) => (
+        <PianoKey
+          key={key.midi}
+          midi={key.midi}
+          noteName={key.noteName}
+          keyType={key.keyType}
+          isPressed={pressedKeys.has(key.midi)}
+          onPress={handlePress}
+          onRelease={handleRelease}
+        />
+      ))}
+    </section>
+  </main>
+);
 }
 
 export default PianoKeyboard;
