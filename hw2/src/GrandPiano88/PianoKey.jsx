@@ -1,6 +1,8 @@
+import { memo, useCallback } from "react";
 import styles from "./PianoKey.module.css";
 
 function PianoKey({
+  midi,
   noteName,
   keyType = "white",
   isPressed = false,
@@ -9,6 +11,14 @@ function PianoKey({
 }) {
   const isBlack = keyType === "black";
 
+  const handlePress = useCallback(() => {
+    onPress(midi);
+  }, [midi, onPress]);
+
+  const handleRelease = useCallback(() => {
+    onRelease(midi);
+  }, [midi, onRelease]);
+
   function handleKeyDown(event) {
     if (event.key !== " " && event.key !== "Enter") return;
 
@@ -16,14 +26,14 @@ function PianoKey({
 
     if (event.repeat) return;
 
-    onPress?.();
+    handlePress();
   }
 
   function handleKeyUp(event) {
     if (event.key !== " " && event.key !== "Enter") return;
 
     event.preventDefault();
-    onRelease?.();
+    handleRelease();
   }
 
   return (
@@ -34,10 +44,10 @@ function PianoKey({
       } ${isPressed ? styles.pressed : ""}`}
       aria-label={noteName}
       aria-pressed={isPressed}
-      onPointerDown={onPress}
-      onPointerUp={onRelease}
-      onPointerLeave={onRelease}
-      onPointerCancel={onRelease}
+      onPointerDown={handlePress}
+      onPointerUp={handleRelease}
+      onPointerLeave={handleRelease}
+      onPointerCancel={handleRelease}
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
     >
@@ -46,4 +56,4 @@ function PianoKey({
   );
 }
 
-export default PianoKey;
+export default memo(PianoKey);
