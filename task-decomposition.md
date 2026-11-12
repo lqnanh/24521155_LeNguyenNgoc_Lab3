@@ -113,3 +113,30 @@
 - [ ] T-28: Viết AI_FAILURE_AUDIT.md: ít nhất 3 lỗi AI (prompt, code AI, bằng chứng DevTools, commit sửa)
 - [ ] T-30: Chụp đủ ảnh bằng chứng (Profiler, 52/36 phím, voice stealing, replay 3 tốc độ, Stop, Lighthouse, 375px, git log)
 - [ ] T-31: git push lên GitHub
+
+# Homework 3
+
+- [ ] T-00: Tạo thư mục src/homeworks/KraftonPubgVnArena/, src/hooks/, src/data/, cập nhật project-rules.md với rule của HW3.
+- [ ] T-01: Viết contract (JSDoc typedef) cho DropPhase, PubgCrateDrop, PubgVnSquadStanding trong src/data/pubgVnContract.js.
+- [ ] T-02: Tạo dữ liệu mẫu: 4 đội (te, ces, ge, agg) và 2 loại crate với số lượng và thời điểm mở.
+- [ ] T-03: Viết hook usePubgAirdropTimer(targetEpochMs, serverOffsetMs) trả về { remainingMs, isLive }, tính lại từ Date.now() và cập nhật mỗi 200ms.
+- [ ] T-04: Thêm visibilitychange để tính lại ngay khi tab hiện lại, và cleanup đầy đủ khi unmount.
+- [ ] T-05: Kiểm tra đếm ngược: đặt mốc 1 phút, ẩn tab 2 phút, mở lại, số về 0 đúng lúc.
+- [ ] T-06: Viết hook useCrateClaim với khóa claimId bằng useRef, giảm số lượng lạc quan khi bấm.
+- [ ] T-07: Gửi yêu cầu nhận vé kèm AbortController. Khi 409 thì hoàn lại số lượng và chuyển sang LOOTED_OUT.
+- [ ] T-08: Khi AbortError thì không hoàn lại và không báo lỗi. Kiểm tra bằng cách đổi trang khi đang nhận vé.
+- [ ] T-09: Viết component CrateCard (hàm, không dùng `<div>`) hiển thị các trạng thái: chờ, đang xử lý, đã nhận, hết hàng, lỗi mạng.
+- [ ] T-10: Định dạng giá VND bằng Intl.NumberFormat('vi-VN').
+- [ ] T-11: Viết danh sách đội dạng `<ul>`, thông tin mỗi đội trong `<dl>`, key là squadId.
+- [ ] T-12: Thêm ô tìm theo tên đội và ô điểm tối thiểu, mỗi ô có `<label htmlFor>` với id từ useId().
+- [ ] T-13: Thêm ô chọn kiểu sắp xếp: theo WWCD, điểm vị trí hoặc điểm hạ gục.
+- [ ] T-14: Tính danh sách đã lọc và sắp xếp (dùng .toSorted()) ngay khi render, không dùng useEffect và không lưu vào state.
+- [ ] T-15: Hiển thị "Tìm thấy X đội" trong `<output role="status" aria-live="polite">`.
+- [ ] T-16: Giữ virtual list từ Lab 2 HW3, kiểm tra danh sách dài vẫn mượt.
+- [ ] T-17: Hiển thị lỗi mạng trong `<section role="alert">` kèm nút thử lại (type="button").
+- [ ] T-18: Chuyển CSS sang `.module.css`, khai báo màu trong `:root`, kiểm tra ở 375px không cuộn ngang.
+- [ ] T-19: Rà soát toàn bộ code: không còn `<div>`, mọi ô nhập có label, mọi ảnh có alt, width, height và dùng HTTPS.
+- [ ] T-20: Kiểm tra bằng DevTools: Console không có cảnh báo, Lighthouse Accessibility đạt 100, React Profiler xác nhận render đúng.
+- [ ] T-21: Viết AI_FAILURE_AUDIT.md với ít nhất 3 lỗi AI, mỗi lỗi có prompt, đoạn code sai, bằng chứng DevTools và cách sửa.
+- [ ] T-22: Commit theo bước với 6 đến 8 commit: feat(hw3) cho hook và claim, feat(hw3) cho bảng xếp hạng, style(hw3) cho giao diện, fix(hw3) cho sửa lỗi và trợ năng.
+- [ ] T-23: Chuẩn bị bảo vệ 3 phút: thử thêm một bộ lọc mới mà không dùng useEffect, và giải thích vì sao đếm ngược không bị lệch.
