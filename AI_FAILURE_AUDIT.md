@@ -34,3 +34,11 @@ Cách sửa: so sánh file mới với file cũ trước khi chép, thêm lại 
 
 1. Lỗi: Mỗi pad chỉ dùng lại một đối tượng âm thanh và tua về đầu (currentTime = 0) mỗi lần đánh, nên bấm 1 nút liên tiếp thì tiếng sau cắt cụt phần ngân của tiếng trước
  - cách sửa: Mỗi lần đánh phát một bản sao (cloneNode()) của âm thanh đã tải sẵn để các tiếng chồng lên nhau, và lưu các bản sao trong một Set để dừng hết khi component tắt.
+
+
+ ## hw2
+ - Lỗi: PianoKey chỉ lắng nghe sự kiện chuột/chạm, nên Tab + Space/Enter không bật được nốt
+ - Sửa: thêm xử lý Space/Enter nhấn xuống và nhả ra, gọi cùng hàm với chuột, bỏ qua phím giữ lặp lại (e.repeat)
+
+ - Lỗi:PianoKey là hàm thường, nên bấm 1 phím thì cả 88 phím vẽ lại
+ - sửa: bọc PianoKey bằng React.memo, kiểm tra lại Profiler cho thấy chỉ 1 phím vẽ lại
