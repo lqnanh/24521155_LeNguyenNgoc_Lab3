@@ -1,0 +1,70 @@
+.badge {
+  --phase-color: var(--color-muted);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  justify-self: start;
+  max-width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--phase-color);
+  border-radius: var(--radius);
+  background-color: color-mix(in srgb, var(--phase-color) 15%, transparent);
+  font-size: 0.875rem;
+}
+
+/* Mỗi trạng thái một màu, nhưng chữ luôn ghi rõ trạng thái (không chỉ dựa vào màu) */
+.badge[data-phase='WARMUP'] {
+  --phase-color: #5aa9e6;
+}
+
+.badge[data-phase='AIRDROP_LIVE'] {
+  --phase-color: #3ecf8e;
+}
+
+.badge[data-phase='LOOTED_OUT'] {
+  --phase-color: #e5484d;
+}
+
+.badge[data-phase='EXPIRED'] {
+  --phase-color: #7c8595;
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--phase-color);
+}
+
+.badge[data-phase='AIRDROP_LIVE'] .dot {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.description {
+  color: var(--color-muted);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Tắt nhấp nháy với người dùng đã chọn giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .badge[data-phase='AIRDROP_LIVE'] .dot {
+    animation: none;
+  }
+}
