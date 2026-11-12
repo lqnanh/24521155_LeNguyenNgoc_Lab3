@@ -50,6 +50,54 @@
   z-index: 2;
 }
 
+.playback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.select,
+.controlButton {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  font-size: 16px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #333;
+}
+
+.controlButton {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.recordButton:disabled,
+.select:disabled,
+.controlButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.select:focus-visible,
+.controlButton:focus-visible {
+  outline: 3px solid #d4453a;
+  outline-offset: 2px;
+}
 
 /* MIDI -> số thứ tự (từ 1) của phím trắng đứng ngay trước phím đen */
 .keyboard > button[data-midi="22"] { --col:1; }
