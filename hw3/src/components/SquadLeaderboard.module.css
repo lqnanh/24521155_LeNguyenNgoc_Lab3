@@ -1,3 +1,38 @@
+/* ---------- Ô tìm và ô sắp xếp ---------- */
+.controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25rem;
+  margin-bottom: var(--space-2);
+}
+
+.label {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.label:not(:first-child) {
+  margin-top: var(--space-1);
+}
+
+.field {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius) - 0.25rem);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  /* 1rem = 16px: tránh iPhone tự phóng to khi chạm vào ô nhập */
+  font-size: 1rem;
+}
+
+.field:focus-visible {
+  border-color: var(--color-accent);
+}
+
+/* ---------- Bảng xếp hạng ---------- */
 .table {
   width: 100%;
   border-collapse: collapse;

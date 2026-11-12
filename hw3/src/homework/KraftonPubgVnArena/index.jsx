@@ -1,11 +1,15 @@
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import CrateDropList from '../../components/CrateDropList';
+import LeaderboardControls from '../../components/LeaderboardControls';
 import SquadLeaderboard from '../../components/SquadLeaderboard';
 import { crates, squads } from '../../data/pubgVnData';
 
 export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
   const cratesHeadingId = useId();
   const leaderboardHeadingId = useId();
+
+  const [query, setQuery] = useState('');
+  const [sortBy, setSortBy] = useState('rankPoints');
 
   return (
     <>
@@ -35,6 +39,12 @@ export default function KraftonPubgVnArena({ title = 'PUBG Vietnam Arena' }) {
           <h2 id={leaderboardHeadingId} className="arena-section__title">
             Bảng xếp hạng đội
           </h2>
+          <LeaderboardControls
+            query={query}
+            sortBy={sortBy}
+            onQueryChange={setQuery}
+            onSortByChange={setSortBy}
+          />
           <SquadLeaderboard squads={squads} />
         </section>
       </main>
