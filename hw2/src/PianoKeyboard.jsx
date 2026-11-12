@@ -1,10 +1,12 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { PIANO_KEYS } from "./GrandPiano88/pianoKeys";
 import PianoKey from "./GrandPiano88/PianoKey";
 import styles from "./PianoKeyboard.module.css";
 
 function PianoKeyboard() {
   const [pressedKeys, setPressedKeys] = useState(() => new Set());
+  const [activeMidi, setActiveMidi] = useState(PIANO_KEYS[0].midi);
+  const keyboardRef = useRef(null);
 
   // Thêm MIDI vào Set khi nhấn phím
   const handlePress = useCallback((midi) => {
@@ -30,38 +32,69 @@ function PianoKeyboard() {
     });
   }, []);
 
-  const whiteKeys = PIANO_KEYS.filter(
-    (key) => key.keyType === "white"
+  // Ghi nhớ phím đang được focus (roving tabindex)
+  const handleFocusKey = useCallback((midi) => {
+    setActiveMidi(midi);
+  }, []);
+
+  // Di chuyển focus giữa các phím bằng mũi tên / Home / End
+  function handleKeyboardKeyDown(event) {
+    const index = PIANO_KEYS.findIndex((key) => key.midi === activeMidi);
+    let nextIndex;
+
+    switch (event.key) {
+      case "ArrowRight":
+        nextIndex = Math.min(index + 1, PIANO_KEYS.length - 1);
+        break;
+      case "ArrowLeft":
+        nextIndex = Math.max(index - 1, 0);
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = PIANO_KEYS.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+
+    const nextMidi = PIANO_KEYS[nextIndex].midi;
+    setActiveMidi(nextMidi);
+    keyboardRef.current
+      ?.querySelector(`[data-midi="${nextMidi}"]`)
+      ?.focus();
+  }
+
+  return (
+    <main className={styles.piano}>
+      <output className={styles.status} aria-live="polite">
+        Đang bấm: {pressedKeys.size} phím
+      </output>
+
+      <section
+        ref={keyboardRef}
+        className={styles.keyboard}
+        aria-label="Đàn piano 88 phím"
+        onKeyDown={handleKeyboardKeyDown}
+      >
+        {PIANO_KEYS.map((key) => (
+          <PianoKey
+            key={key.midi}
+            midi={key.midi}
+            noteName={key.noteName}
+            keyType={key.keyType}
+            isPressed={pressedKeys.has(key.midi)}
+            onPress={handlePress}
+            onRelease={handleRelease}
+            onFocusKey={handleFocusKey}
+          />
+        ))}
+      </section>
+    </main>
   );
-
-  const blackKeys = PIANO_KEYS.filter(
-    (key) => key.keyType === "black"
-  );
-
-return (
-  <main className={styles.piano}>
-    <output className={styles.status} aria-live="polite">
-      Đang bấm: {pressedKeys.size} phím
-    </output>
-
-    <section
-      className={styles.keyboard}
-      aria-label="Đàn piano 88 phím"
-    >
-      {PIANO_KEYS.map((key) => (
-        <PianoKey
-          key={key.midi}
-          midi={key.midi}
-          noteName={key.noteName}
-          keyType={key.keyType}
-          isPressed={pressedKeys.has(key.midi)}
-          onPress={handlePress}
-          onRelease={handleRelease}
-        />
-      ))}
-    </section>
-  </main>
-);
 }
 
 export default PianoKeyboard;

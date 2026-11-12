@@ -35,58 +35,62 @@
 
 /* Phím đen */
 .keyboard > button[data-key-type="black"] {
-  position: absolute;
-  top: 0;
-  grid-row: 1;
-  justify-self: end;
-  translate: 50% 0;
+  --black-key-width: 26px;
 
-  width: 26px;
+  position: absolute;
+  /* 8px / 4px = padding-top / padding-left của .keyboard */
+  top: 8px;
+  /* Tâm phím đen nằm đúng khe sau phím trắng thứ --col */
+  left: calc(
+    4px + var(--col) * var(--white-key-width) - var(--black-key-width) / 2
+  );
+
+  width: var(--black-key-width);
   height: 115px;
   z-index: 2;
 }
 
 
-/* MIDI và cột của phím trắng đứng trước nó */
-.keyboard > button[data-midi="22"] { grid-column: 1; }
-.keyboard > button[data-midi="25"] { grid-column: 3; }
-.keyboard > button[data-midi="27"] { grid-column: 4; }
-.keyboard > button[data-midi="30"] { grid-column: 6; }
-.keyboard > button[data-midi="32"] { grid-column: 7; }
-.keyboard > button[data-midi="34"] { grid-column: 8; }
+/* MIDI -> số thứ tự (từ 1) của phím trắng đứng ngay trước phím đen */
+.keyboard > button[data-midi="22"] { --col:1; }
+.keyboard > button[data-midi="25"] { --col:3; }
+.keyboard > button[data-midi="27"] { --col:4; }
+.keyboard > button[data-midi="30"] { --col:6; }
+.keyboard > button[data-midi="32"] { --col:7; }
+.keyboard > button[data-midi="34"] { --col:8; }
 
-.keyboard > button[data-midi="37"] { grid-column: 10; }
-.keyboard > button[data-midi="39"] { grid-column: 11; }
-.keyboard > button[data-midi="42"] { grid-column: 13; }
-.keyboard > button[data-midi="44"] { grid-column: 14; }
-.keyboard > button[data-midi="46"] { grid-column: 15; }
+.keyboard > button[data-midi="37"] { --col:10; }
+.keyboard > button[data-midi="39"] { --col:11; }
+.keyboard > button[data-midi="42"] { --col:13; }
+.keyboard > button[data-midi="44"] { --col:14; }
+.keyboard > button[data-midi="46"] { --col:15; }
 
-.keyboard > button[data-midi="49"] { grid-column: 17; }
-.keyboard > button[data-midi="51"] { grid-column: 18; }
-.keyboard > button[data-midi="54"] { grid-column: 20; }
-.keyboard > button[data-midi="56"] { grid-column: 21; }
-.keyboard > button[data-midi="58"] { grid-column: 22; }
+.keyboard > button[data-midi="49"] { --col:17; }
+.keyboard > button[data-midi="51"] { --col:18; }
+.keyboard > button[data-midi="54"] { --col:20; }
+.keyboard > button[data-midi="56"] { --col:21; }
+.keyboard > button[data-midi="58"] { --col:22; }
 
-.keyboard > button[data-midi="61"] { grid-column: 24; }
-.keyboard > button[data-midi="63"] { grid-column: 25; }
-.keyboard > button[data-midi="66"] { grid-column: 27; }
-.keyboard > button[data-midi="68"] { grid-column: 28; }
-.keyboard > button[data-midi="70"] { grid-column: 29; }
+.keyboard > button[data-midi="61"] { --col:24; }
+.keyboard > button[data-midi="63"] { --col:25; }
+.keyboard > button[data-midi="66"] { --col:27; }
+.keyboard > button[data-midi="68"] { --col:28; }
+.keyboard > button[data-midi="70"] { --col:29; }
 
-.keyboard > button[data-midi="73"] { grid-column: 31; }
-.keyboard > button[data-midi="75"] { grid-column: 32; }
-.keyboard > button[data-midi="78"] { grid-column: 34; }
-.keyboard > button[data-midi="80"] { grid-column: 35; }
-.keyboard > button[data-midi="82"] { grid-column: 36; }
+.keyboard > button[data-midi="73"] { --col:31; }
+.keyboard > button[data-midi="75"] { --col:32; }
+.keyboard > button[data-midi="78"] { --col:34; }
+.keyboard > button[data-midi="80"] { --col:35; }
+.keyboard > button[data-midi="82"] { --col:36; }
 
-.keyboard > button[data-midi="85"] { grid-column: 38; }
-.keyboard > button[data-midi="87"] { grid-column: 39; }
-.keyboard > button[data-midi="90"] { grid-column: 41; }
-.keyboard > button[data-midi="92"] { grid-column: 42; }
-.keyboard > button[data-midi="94"] { grid-column: 43; }
+.keyboard > button[data-midi="85"] { --col:38; }
+.keyboard > button[data-midi="87"] { --col:39; }
+.keyboard > button[data-midi="90"] { --col:41; }
+.keyboard > button[data-midi="92"] { --col:42; }
+.keyboard > button[data-midi="94"] { --col:43; }
 
-.keyboard > button[data-midi="97"] { grid-column: 45; }
-.keyboard > button[data-midi="99"] { grid-column: 46; }
-.keyboard > button[data-midi="102"] { grid-column: 48; }
-.keyboard > button[data-midi="104"] { grid-column: 49; }
-.keyboard > button[data-midi="106"] { grid-column: 50; }
+.keyboard > button[data-midi="97"] { --col:45; }
+.keyboard > button[data-midi="99"] { --col:46; }
+.keyboard > button[data-midi="102"] { --col:48; }
+.keyboard > button[data-midi="104"] { --col:49; }
+.keyboard > button[data-midi="106"] { --col:50; }

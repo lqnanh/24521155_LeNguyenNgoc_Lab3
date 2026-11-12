@@ -8,6 +8,7 @@ function PianoKey({
     isPressed = false,
     onPress,
     onRelease,
+    onFocusKey,
 }) {
     const isBlack = keyType === "black";
 
@@ -40,6 +41,8 @@ function PianoKey({
             type="button"
             data-midi={midi}
             data-key-type={keyType}
+            onFocus={() => onFocusKey?.(midi)}
+            onBlur={() => onRelease?.(midi)}
             className={[
                 styles.key,
                 isBlack ? styles.blackKey : styles.whiteKey,
