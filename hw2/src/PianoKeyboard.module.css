@@ -1,0 +1,44 @@
+.piano {
+  width: 100%;
+  padding: 20px;
+}
+
+.status {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.keyboard {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  padding: 8px 4px 12px;
+}
+
+.whiteKeys {
+  display: flex;
+  width: max-content;
+}
+
+.blackKeys {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  display: flex;
+  width: max-content;
+  pointer-events: none;
+}
+
+.blackKeys button {
+  pointer-events: auto;
+}
+
+.blackKeys button {
+  position: relative;
+}
+
+.blackKeys button:nth-child(12n + 1) {
+  margin-left: 0;
+}
