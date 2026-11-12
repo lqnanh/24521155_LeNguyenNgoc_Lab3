@@ -116,27 +116,17 @@
 
 # Homework 3
 
-- [ ] T-00: Tạo thư mục src/homeworks/KraftonPubgVnArena/, src/hooks/, src/data/, cập nhật project-rules.md với rule của HW3.
-- [ ] T-01: Viết contract (JSDoc typedef) cho DropPhase, PubgCrateDrop, PubgVnSquadStanding trong src/data/pubgVnContract.js.
-- [ ] T-02: Tạo dữ liệu mẫu: 4 đội (te, ces, ge, agg) và 2 loại crate với số lượng và thời điểm mở.
-- [ ] T-03: Viết hook usePubgAirdropTimer(targetEpochMs, serverOffsetMs) trả về { remainingMs, isLive }, tính lại từ Date.now() và cập nhật mỗi 200ms.
-- [ ] T-04: Thêm visibilitychange để tính lại ngay khi tab hiện lại, và cleanup đầy đủ khi unmount.
-- [ ] T-05: Kiểm tra đếm ngược: đặt mốc 1 phút, ẩn tab 2 phút, mở lại, số về 0 đúng lúc.
-- [ ] T-06: Viết hook useCrateClaim với khóa claimId bằng useRef, giảm số lượng lạc quan khi bấm.
-- [ ] T-07: Gửi yêu cầu nhận vé kèm AbortController. Khi 409 thì hoàn lại số lượng và chuyển sang LOOTED_OUT.
-- [ ] T-08: Khi AbortError thì không hoàn lại và không báo lỗi. Kiểm tra bằng cách đổi trang khi đang nhận vé.
-- [ ] T-09: Viết component CrateCard (hàm, không dùng `<div>`) hiển thị các trạng thái: chờ, đang xử lý, đã nhận, hết hàng, lỗi mạng.
-- [ ] T-10: Định dạng giá VND bằng Intl.NumberFormat('vi-VN').
-- [ ] T-11: Viết danh sách đội dạng `<ul>`, thông tin mỗi đội trong `<dl>`, key là squadId.
-- [ ] T-12: Thêm ô tìm theo tên đội và ô điểm tối thiểu, mỗi ô có `<label htmlFor>` với id từ useId().
-- [ ] T-13: Thêm ô chọn kiểu sắp xếp: theo WWCD, điểm vị trí hoặc điểm hạ gục.
-- [ ] T-14: Tính danh sách đã lọc và sắp xếp (dùng .toSorted()) ngay khi render, không dùng useEffect và không lưu vào state.
-- [ ] T-15: Hiển thị "Tìm thấy X đội" trong `<output role="status" aria-live="polite">`.
-- [ ] T-16: Giữ virtual list từ Lab 2 HW3, kiểm tra danh sách dài vẫn mượt.
-- [ ] T-17: Hiển thị lỗi mạng trong `<section role="alert">` kèm nút thử lại (type="button").
-- [ ] T-18: Chuyển CSS sang `.module.css`, khai báo màu trong `:root`, kiểm tra ở 375px không cuộn ngang.
-- [ ] T-19: Rà soát toàn bộ code: không còn `<div>`, mọi ô nhập có label, mọi ảnh có alt, width, height và dùng HTTPS.
-- [ ] T-20: Kiểm tra bằng DevTools: Console không có cảnh báo, Lighthouse Accessibility đạt 100, React Profiler xác nhận render đúng.
-- [ ] T-21: Viết AI_FAILURE_AUDIT.md với ít nhất 3 lỗi AI, mỗi lỗi có prompt, đoạn code sai, bằng chứng DevTools và cách sửa.
-- [ ] T-22: Commit theo bước với 6 đến 8 commit: feat(hw3) cho hook và claim, feat(hw3) cho bảng xếp hạng, style(hw3) cho giao diện, fix(hw3) cho sửa lỗi và trợ năng.
-- [ ] T-23: Chuẩn bị bảo vệ 3 phút: thử thêm một bộ lọc mới mà không dùng useEffect, và giải thích vì sao đếm ngược không bị lệch.
+
+- [ ] T-00: Tạo project Vite + React 19, viết project-rules.md và task-decomposition.md
+- [ ] T-01: Làm khung trang trong src/homeworks/KraftonPubgVnArena/index.jsx (header, khu vé/thùng đồ, khu bảng xếp hạng), vừa 375px
+- [ ] T-02: Viết src/data/pubgVnData.js (3 vé/thùng đồ có giá VND và số lượng, 4 đội TE, CES, Roy, AGG)
+- [ ] T-03: Viết CrateCard.jsx và CrateDropList.jsx hiển thị dữ liệu tĩnh, giá định dạng bằng Intl vi-VN
+- [ ] T-04: Viết SquadLeaderboard.jsx hiển thị bảng xếp hạng tĩnh (WWCD, điểm xếp hạng, điểm hạ gục), key theo squadId
+- [ ] T-05: Viết LeaderboardControls.jsx (ô gõ tên đội, ô chọn kiểu sắp xếp), có label + useId()
+- [ ] T-06: Viết AirdropPhaseBadge.jsx hiển thị 4 trạng thái WARMUP/AIRDROP_LIVE/LOOTED_OUT/EXPIRED, có aria-live
+- [ ] T-07: Viết src/hooks/usePubgAirdropTimer.js (tính theo mốc giờ đích, cập nhật mỗi 200ms) và Countdown.jsx
+- [ ] T-08: Thêm tính lại thời gian khi quay lại tab (visibilitychange), có dọn dẹp interval và listener
+- [ ] T-09: Viết src/api/claimCrate.js (chờ 1s, đôi khi trả lỗi 409) và src/hooks/useCrateClaim.js (trừ số lượng ngay, khóa nút trong lúc chờ)
+- [ ] T-10: Xử lý lỗi 409: trả số lượng về như cũ, hiện ClaimAlert.jsx với role="alert"
+- [ ] T-11: Lọc và sắp xếp bảng xếp hạng ngay trong lúc render bằng filter + toSorted(), hiện số đội trong <output>
+- [ ] T-12: Viết AI_FAILURE_AUDIT.md (ít nhất 3 lỗi AI, có prompt, code lỗi, bằng chứng DevTools, commit sửa)
