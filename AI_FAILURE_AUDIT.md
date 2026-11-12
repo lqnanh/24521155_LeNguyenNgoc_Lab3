@@ -47,3 +47,6 @@ Cách sửa: so sánh file mới với file cũ trước khi chép, thêm lại 
  ## hw3 
  - lỗi: ai dùng lang="en"
  - sửa: sửa lại thành lang="vi"
+
+ - Lỗi: nút Nhận chuyển sang disabled khi đang chờ server, làm mất focus của người dùng bàn phím và đẩy họ về đầu trang.
+ - sửa: khi đang chờ, dùng aria-disabled="true" thay cho disabled để nút vẫn giữ được focus. Việc chặn bấm trùng đã có useRef lo.
