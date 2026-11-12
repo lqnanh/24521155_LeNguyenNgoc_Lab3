@@ -1,7 +1,30 @@
 import styles from "./PianoKey.module.css";
 
-function PianoKey({ noteName, keyType = "white", isPressed = false, onPress, onRelease }) {
+function PianoKey({
+  noteName,
+  keyType = "white",
+  isPressed = false,
+  onPress,
+  onRelease,
+}) {
   const isBlack = keyType === "black";
+
+  function handleKeyDown(event) {
+    if (event.key !== " " && event.key !== "Enter") return;
+
+    event.preventDefault();
+
+    if (event.repeat) return;
+
+    onPress?.();
+  }
+
+  function handleKeyUp(event) {
+    if (event.key !== " " && event.key !== "Enter") return;
+
+    event.preventDefault();
+    onRelease?.();
+  }
 
   return (
     <button
@@ -15,6 +38,8 @@ function PianoKey({ noteName, keyType = "white", isPressed = false, onPress, onR
       onPointerUp={onRelease}
       onPointerLeave={onRelease}
       onPointerCancel={onRelease}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
     >
       <span className={styles.noteName}>{noteName}</span>
     </button>
