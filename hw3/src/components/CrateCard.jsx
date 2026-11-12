@@ -17,6 +17,7 @@ export default function CrateCard({
   onClaim = () => {},
 }) {
   const isSoldOut = stock <= 0;
+  const isDisabled = isPending || isSoldOut || !canClaim;
 
   let buttonText = 'Nhận';
   let buttonLabel = `Nhận ${name}`;
@@ -30,6 +31,13 @@ export default function CrateCard({
   } else if (!canClaim) {
     buttonText = closedLabel;
     buttonLabel = `${name}: ${closedLabel}`;
+  }
+
+  // Không dùng disabled vì nút bị disabled sẽ mất focus,
+  // đẩy người dùng bàn phím về đầu trang. Tự chặn click ở đây.
+  function handleClick() {
+    if (isDisabled) return;
+    onClaim();
   }
 
   return (
@@ -49,8 +57,8 @@ export default function CrateCard({
       <button
         type="button"
         className={styles.claimButton}
-        onClick={onClaim}
-        disabled={isPending || isSoldOut || !canClaim}
+        onClick={handleClick}
+        aria-disabled={isDisabled}
         aria-busy={isPending}
         aria-label={buttonLabel}
       >
