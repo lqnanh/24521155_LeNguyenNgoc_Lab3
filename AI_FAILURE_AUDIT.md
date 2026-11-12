@@ -42,3 +42,8 @@ Cách sửa: so sánh file mới với file cũ trước khi chép, thêm lại 
 
  - Lỗi:PianoKey là hàm thường, nên bấm 1 phím thì cả 88 phím vẽ lại
  - sửa: bọc PianoKey bằng React.memo, kiểm tra lại Profiler cho thấy chỉ 1 phím vẽ lại
+
+
+ ## hw3 
+ - lỗi: ai dùng lang="en"
+ - sửa: sửa lại thành lang="vi"
