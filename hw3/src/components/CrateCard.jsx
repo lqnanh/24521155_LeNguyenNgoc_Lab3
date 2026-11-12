@@ -11,9 +11,26 @@ export default function CrateCard({
   kind = 'crate',
   price = 0,
   stock = 0,
+  isPending = false,
+  canClaim = true,
+  closedLabel = 'Chưa mở',
   onClaim = () => {},
 }) {
   const isSoldOut = stock <= 0;
+
+  let buttonText = 'Nhận';
+  let buttonLabel = `Nhận ${name}`;
+
+  if (isPending) {
+    buttonText = 'Đang nhận…';
+    buttonLabel = `Đang nhận ${name}`;
+  } else if (isSoldOut) {
+    buttonText = 'Hết hàng';
+    buttonLabel = `${name} đã hết`;
+  } else if (!canClaim) {
+    buttonText = closedLabel;
+    buttonLabel = `${name}: ${closedLabel}`;
+  }
 
   return (
     <article className={styles.card}>
@@ -33,10 +50,11 @@ export default function CrateCard({
         type="button"
         className={styles.claimButton}
         onClick={onClaim}
-        disabled={isSoldOut}
-        aria-label={isSoldOut ? `${name} đã hết` : `Nhận ${name}`}
+        disabled={isPending || isSoldOut || !canClaim}
+        aria-busy={isPending}
+        aria-label={buttonLabel}
       >
-        {isSoldOut ? 'Hết hàng' : 'Nhận'}
+        {buttonText}
       </button>
     </article>
   );

@@ -11,7 +11,7 @@ function pad(value) {
   return String(value).padStart(2, '0');
 }
 
-function formatRemaining(ms) {
+function formatDuration(ms) {
   // Làm tròn lên: còn 0,4 giây vẫn hiện 00:00:01, chỉ hiện 0 khi đã thật sự tới giờ
   const totalSeconds = Math.ceil(ms / 1000);
   const days = Math.floor(totalSeconds / 86400);
@@ -27,7 +27,13 @@ function formatRemaining(ms) {
   };
 }
 
-export default function Countdown({ targetTime, remainingMs = 0, isOpen = false }) {
+export default function Countdown({
+  targetTime,
+  remainingMs = 0,
+  closesInMs = 0,
+  isOpen = false,
+  isExpired = false,
+}) {
   const target = new Date(targetTime);
   const hasTarget = Number.isFinite(target.getTime());
 
@@ -35,13 +41,26 @@ export default function Countdown({ targetTime, remainingMs = 0, isOpen = false 
     return <p className="arena-section__placeholder">Chưa có giờ thả hàng.</p>;
   }
 
-  const { totalSeconds, text } = formatRemaining(remainingMs);
+  let term = 'Thả hàng sau';
+  let duration = formatDuration(remainingMs);
+
+  if (isExpired) {
+    term = 'Đợt thả hàng';
+    duration = null;
+  } else if (isOpen) {
+    term = 'Đóng sau';
+    duration = formatDuration(closesInMs);
+  }
 
   return (
     <dl className="countdown">
-      <dt className="countdown__term">{isOpen ? 'Hàng đã được thả' : 'Thả hàng sau'}</dt>
-      <dd className="countdown__value">
-        <time dateTime={`PT${totalSeconds}S`}>{isOpen ? 'Đã mở' : text}</time>
+      <dt className="countdown__term">{term}</dt>
+      <dd className={isExpired ? 'countdown__value countdown__value--ended' : 'countdown__value'}>
+        {duration === null ? (
+          'Đã kết thúc'
+        ) : (
+          <time dateTime={`PT${duration.totalSeconds}S`}>{duration.text}</time>
+        )}
       </dd>
 
       <dt className="countdown__term">Giờ thả hàng</dt>

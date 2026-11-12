@@ -4,18 +4,20 @@ import Countdown from '../../components/Countdown';
 import CrateDropList from '../../components/CrateDropList';
 import LeaderboardControls from '../../components/LeaderboardControls';
 import SquadLeaderboard from '../../components/SquadLeaderboard';
-import { crates, squads } from '../../data/pubgVnData';
-import { usePubgAirdropTimer } from '../../hooks/usePubgAirdropTimer';
+import { crates as initialCrates, squads } from '../../data/pubgVnData';
+import { useCrateClaim } from '../../hooks/useCrateClaim';
+import {
+  AIRDROP_LIVE_DURATION_MS,
+  usePubgAirdropTimer,
+} from '../../hooks/usePubgAirdropTimer';
 
 // TẠM: giờ thả hàng giả, 90 giây sau khi mở trang
 const DEMO_AIRDROP_AT = Date.now() + 90 * 1000;
 
-// TẠM: danh sách trạng thái cho các nút đổi bằng tay, xóa khi có đồng hồ thật
-const DEBUG_PHASES = ['WARMUP', 'AIRDROP_LIVE', 'LOOTED_OUT', 'EXPIRED'];
-
 export default function KraftonPubgVnArena({
   title = 'PUBG Vietnam Arena',
   airdropAt = DEMO_AIRDROP_AT,
+  airdropDurationMs = AIRDROP_LIVE_DURATION_MS,
 }) {
   const cratesHeadingId = useId();
   const leaderboardHeadingId = useId();
@@ -23,10 +25,15 @@ export default function KraftonPubgVnArena({
   const [query, setQuery] = useState('');
   const [sortBy, setSortBy] = useState('rankPoints');
 
-  const { remainingMs, isOpen } = usePubgAirdropTimer(airdropAt);
+  const { remainingMs, closesInMs, isOpen, isExpired, phase } = usePubgAirdropTimer(
+    airdropAt,
+    airdropDurationMs,
+  );
 
-  // TẠM: trạng thái đổi bằng tay, sẽ tính từ đồng hồ và số lượng còn lại
-  const [phase, setPhase] = useState('WARMUP');
+  const { crates, pendingIds, claim } = useCrateClaim(initialCrates);
+
+  const canClaim = phase === 'AIRDROP_LIVE';
+  const closedLabel = phase === 'WARMUP' ? 'Chưa mở' : 'Đã đóng';
 
   return (
     <>
@@ -38,26 +45,13 @@ export default function KraftonPubgVnArena({
         </p>
 
         <AirdropPhaseBadge phase={phase} />
-        <Countdown targetTime={airdropAt} remainingMs={remainingMs} isOpen={isOpen} />
-
-        {/* TẠM: nút đổi trạng thái bằng tay để xem giao diện */}
-        <fieldset className="phase-debug">
-          <legend className="phase-debug__legend">Đổi trạng thái (tạm thời, để thử)</legend>
-          <ul className="phase-debug__list">
-            {DEBUG_PHASES.map((item) => (
-              <li key={item}>
-                <button
-                  type="button"
-                  className="phase-debug__button"
-                  aria-pressed={item === phase}
-                  onClick={() => setPhase(item)}
-                >
-                  {item}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </fieldset>
+        <Countdown
+          targetTime={airdropAt}
+          remainingMs={remainingMs}
+          closesInMs={closesInMs}
+          isOpen={isOpen}
+          isExpired={isExpired}
+        />
       </header>
 
       <main className="arena">
@@ -68,7 +62,13 @@ export default function KraftonPubgVnArena({
           <h2 id={cratesHeadingId} className="arena-section__title">
             Vé và thùng đồ
           </h2>
-          <CrateDropList crates={crates} />
+          <CrateDropList
+            crates={crates}
+            pendingIds={pendingIds}
+            canClaim={canClaim}
+            closedLabel={closedLabel}
+            onClaim={claim}
+          />
         </section>
 
         <section
