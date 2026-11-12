@@ -1,12 +1,21 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PIANO_KEYS } from "./GrandPiano88/pianoKeys";
 import PianoKey from "./GrandPiano88/PianoKey";
+import { PolyphonicSynth } from "./audio/Polyphonicsynth";
 import styles from "./PianoKeyboard.module.css";
 
 function PianoKeyboard() {
   const [pressedKeys, setPressedKeys] = useState(() => new Set());
   const [activeMidi, setActiveMidi] = useState(PIANO_KEYS[0].midi);
   const keyboardRef = useRef(null);
+  const [synth] = useState(() => new PolyphonicSynth());
+
+
+  useEffect(() => {
+    return () => {
+      synth.dispose();
+    };
+  }, [synth]);
 
   // Thêm MIDI vào Set khi nhấn phím
   const handlePress = useCallback((midi) => {

@@ -1,11 +1,14 @@
 /**
  * Bộ tổng hợp âm đa âm dùng Web Audio API.
  * Đây là lớp JS thuần, không phụ thuộc React.
- * Component chỉ gọi noteOn, noteOff và releaseAll.
+ * Component chỉ gọi noteOn, noteOff, releaseAll và dispose.
  */
 
 const A4_HZ = 440;
 const A4_MIDI = 69;
+
+/** Mức âm lượng thấp nhất dùng cho ramp hàm mũ, vì hàm mũ không thể đi tới 0. */
+const MIN_GAIN = 0.0001;
 
 /**
  * Tần số (Hz) của một nốt MIDI theo f = 440 × 2^((midi − 69) / 12).
@@ -22,14 +25,14 @@ export class PolyphonicSynth {
    * @param {number} [options.maxVoices=8] Số voice tối đa cùng lúc.
    * @param {OscillatorType} [options.waveform='triangle'] Dạng sóng.
    * @param {number} [options.attackSeconds=0.01] Thời gian tăng âm lượng.
-   * @param {number} [options.releaseSeconds=0.08] Thời gian tắt dần khi nhả phím.
+   * @param {number} [options.releaseSeconds=0.04] Thời gian giảm âm lượng khi nhả phím (40 ms).
    * @param {number} [options.voiceGain=0.2] Âm lượng tối đa của mỗi voice.
    */
   constructor({
     maxVoices = 8,
     waveform = 'triangle',
     attackSeconds = 0.01,
-    releaseSeconds = 0.08,
+    releaseSeconds = 0.04,
     voiceGain = 0.2,
   } = {}) {
     this.maxVoices = maxVoices;
@@ -92,7 +95,8 @@ export class PolyphonicSynth {
   }
 
   /**
-   * Nhả một nốt: đưa âm lượng về 0 rồi dừng dao động. Không làm gì nếu nốt không kêu.
+   * Nhả một nốt: giảm âm lượng theo hàm mũ về MIN_GAIN trong releaseSeconds,
+   * rồi dừng dao động. Không làm gì nếu nốt không kêu.
    * @param {number} midi
    */
   noteOff(midi) {
@@ -104,12 +108,16 @@ export class PolyphonicSynth {
     const { osc, gain } = voice;
     const ctx = this.audioContext;
     const now = ctx.currentTime;
+    const endTime = now + this.releaseSeconds;
+
+    // Hàm mũ không bắt đầu được từ 0, nên lấy giá trị hiện tại tối thiểu là MIN_GAIN.
+    const startValue = Math.max(gain.gain.value, MIN_GAIN);
 
     gain.gain.cancelScheduledValues(now);
-    gain.gain.setValueAtTime(gain.gain.value, now);
-    gain.gain.linearRampToValueAtTime(0, now + this.releaseSeconds);
+    gain.gain.setValueAtTime(startValue, now);
+    gain.gain.exponentialRampToValueAtTime(MIN_GAIN, endTime);
 
-    osc.stop(now + this.releaseSeconds);
+    osc.stop(endTime);
     osc.onended = () => {
       osc.disconnect();
       gain.disconnect();
@@ -122,6 +130,28 @@ export class PolyphonicSynth {
   releaseAll() {
     for (const midi of [...this.voices.keys()]) {
       this.noteOff(midi);
+    }
+  }
+
+  /**
+   * Tắt hết âm, chờ hết thời gian nhả, rồi đóng AudioContext.
+   * Sau khi gọi, noteOn vẫn dùng được: AudioContext sẽ được tạo lại lười.
+   * @returns {Promise<void>}
+   */
+  async dispose() {
+    this.releaseAll();
+
+    const ctx = this.audioContext;
+    if (!ctx) return;
+
+    await new Promise((resolve) => setTimeout(resolve, this.releaseSeconds * 1000));
+
+    // Nếu trong lúc chờ có noteOn mới, dùng lại context này và không đóng nữa.
+    if (this.voices.size > 0) return;
+
+    this.audioContext = null;
+    if (ctx.state !== 'closed') {
+      await ctx.close();
     }
   }
 }
